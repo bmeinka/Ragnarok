@@ -10,6 +10,8 @@ namespace Ragnarok
     {
         static void Main(string[] args)
         {
+            using (Window win = new Window())
+                win.Run(60);
         }
     }
 }
