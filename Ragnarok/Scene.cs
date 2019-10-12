@@ -11,9 +11,13 @@ namespace Ragnarok
     /// </summary>
     class Scene
     {
+        private Map map;
+        public Scene()
+        {
+            map = new Map();
+        }
         public void Update(double dt)
         {
-
         }
     }
 }
