@@ -18,7 +18,7 @@ namespace Ragnarok
     static class Camera
     {
         private static readonly float fov = MathHelper.DegreesToRadians(45f);
-        private static readonly float height = 10f;
+        private static readonly float height = 15f;
         private static Vector3 target;
         private static Matrix4 transform;
         public static float AspectRatio { get; set; }

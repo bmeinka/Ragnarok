@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
+﻿using OpenTK.Graphics.OpenGL;
 
 namespace Ragnarok
 {
@@ -30,8 +25,9 @@ namespace Ragnarok
         /* simple RGB array with only four pixels in it */
         private byte[] pixels =
         {
-            0x66, 0x66, 0x99, 0xAA, 0xAA, 0xCC,
-            0xAA, 0xAA, 0xCC, 0x66, 0x66, 0x99,
+            // I don't understand why we need these extra zeros at the end of the row
+            102, 102, 153, 170, 170, 204, 0, 0,
+            170, 170, 204, 102, 102, 153, 0, 0,
         };
 
         private int texture, vertex_array, vertex_buffer;
@@ -61,8 +57,18 @@ namespace Ragnarok
 
             // copy the pixel data to the GPU
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgb, 2, 2, 0, PixelFormat.Rgb, PixelType.UnsignedByte, pixels);
+            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
             // unbind the vertex array when it is done being manipulated
+            GL.BindVertexArray(0);
+        }
+
+        public void Render(double dt)
+        {
+            GL.BindVertexArray(vertex_array);
+
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
+
             GL.BindVertexArray(0);
         }
     }
