@@ -17,13 +17,11 @@ namespace Ragnarok
         protected override void OnLoad(EventArgs e)
         {
             GL.ClearColor(0.8f, 0.2f, 1.0f, 1.0f);
-            GL.Color4(1f, 1f, 1f, 1f);
             GL.Enable(EnableCap.DepthTest);
 
-            Camera.AspectRatio = Width / Height;
-            Camera.Target = new Vector3(0f, 0f, 0f);
+            Camera.Initialize(Width, Height, Vector3.Zero);
 
-            scene = new Scene();
+            scene = new Scene(this);
             base.OnLoad(e);
         }
 

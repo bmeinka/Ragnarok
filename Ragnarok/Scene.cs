@@ -1,6 +1,6 @@
-﻿using OpenTK;
+﻿using System;
+using OpenTK;
 using OpenTK.Input;
-using OpenTK.Graphics.OpenGL;
 
 namespace Ragnarok
 {
@@ -12,22 +12,35 @@ namespace Ragnarok
         private Map map;
         private Shader shader;
         private float speed = 3f;
-        public Scene()
+        private Vector3 target;
+
+        public Scene(Window window)
         {
             map = new Map();
             shader = new Shader("shaders/core.vert", "shaders/core.frag");
+            window.MouseDown += MouseDown;
+            target = new Vector3(0, 0, 0);
         }
+
+        private void MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var ray = Camera.ScreenToRay(e.X, e.Y);
+            Vector3 pos;
+            if (map.Intersect(ray, out pos))
+                target = pos;
+        }
+
         public void Update(double dt)
         {
-            var input = Keyboard.GetState();
-            var movement = Vector3.Zero;
-
-            if (input.IsKeyDown(Key.Left)) movement.X -= 1;
-            if (input.IsKeyDown(Key.Right)) movement.X += 1;
-            if (input.IsKeyDown(Key.Up)) movement.Y += 1;
-            if (input.IsKeyDown(Key.Down)) movement.Y -= 1;
-
-            Camera.Target += movement * (float)dt * speed;
+            if (target != Camera.Target)
+            {
+                var distance = (float)dt * speed;
+                var movement = target - Camera.Target;
+                if (movement.Length < distance)
+                    Camera.Target = target;
+                else
+                    Camera.Target += movement.Normalized() * distance;
+            }
         }
 
         public void Render(double dt)

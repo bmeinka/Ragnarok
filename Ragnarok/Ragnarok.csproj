@@ -58,6 +58,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Ray.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="Window.cs" />
