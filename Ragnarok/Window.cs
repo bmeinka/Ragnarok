@@ -11,7 +11,9 @@ namespace Ragnarok
     /// </summary>
     class Window : GameWindow
     {
-        private Scene scene;
+        public bool IsKeyDown(Key key) => Keyboard.GetState().IsKeyDown(key);
+        public bool IsButtonDown(MouseButton button) => Mouse.GetState().IsButtonDown(button);
+        public Vector2 MousePosition { get; private set; }
         public Window() : base(1280, 720, GraphicsMode.Default, "Ragnarok") { }
 
         protected override void OnLoad(EventArgs e)
@@ -19,24 +21,30 @@ namespace Ragnarok
             GL.ClearColor(0.8f, 0.2f, 1.0f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
 
-            Camera.Initialize(Width, Height, Vector3.Zero);
+            Game.CurrentScene = new Scene(this);
 
-            scene = new Scene(this);
             base.OnLoad(e);
+        }
+
+        protected override void OnMouseMove(MouseMoveEventArgs e)
+        {
+            MousePosition = new Vector2(e.X, e.Y);
+            base.OnMouseMove(e);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            var input = Keyboard.GetState();
-            if (input.IsKeyDown(Key.Escape)) Exit();
-            scene.Update(e.Time);
+            if (IsKeyDown(Key.Escape))
+                Exit();
             base.OnUpdateFrame(e);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            scene.Render(e.Time);
+
+            Game.CurrentScene.Render(e.Time);
+
             SwapBuffers();
             base.OnRenderFrame(e);
         }

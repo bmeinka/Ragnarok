@@ -9,6 +9,7 @@ namespace Ragnarok
     /// </summary>
     class Scene
     {
+        private Camera camera;
         private Map map;
         private Shader shader;
         private float speed = 3f;
@@ -16,37 +17,60 @@ namespace Ragnarok
 
         public Scene(Window window)
         {
+            camera = new Camera(window);
             map = new Map();
             shader = new Shader("shaders/core.vert", "shaders/core.frag");
-            window.MouseDown += MouseDown;
+            window.MouseMove += MouseMove;
+            window.MouseWheel += Scroll;
+            window.UpdateFrame += Update;
             target = new Vector3(0, 0, 0);
         }
 
-        private void MouseDown(object sender, MouseButtonEventArgs e)
+        private void Scroll(object sender, MouseWheelEventArgs e)
         {
-            var ray = Camera.ScreenToRay(e.X, e.Y);
-            Vector3 pos;
-            if (map.Intersect(ray, out pos))
-                target = pos;
+            camera.Zoom -= e.DeltaPrecise * 0.1f;
         }
 
-        public void Update(double dt)
+        private void MouseMove(object sender, MouseMoveEventArgs e)
         {
-            if (target != Camera.Target)
+            if (e.Mouse.IsButtonDown(MouseButton.Right))
             {
-                var distance = (float)dt * speed;
-                var movement = target - Camera.Target;
-                if (movement.Length < distance)
-                    Camera.Target = target;
+                var window = (Window)sender;
+                if (window.IsKeyDown(Key.LShift))
+                    camera.Angle -= e.YDelta * 0.01f;
                 else
-                    Camera.Target += movement.Normalized() * distance;
+                    camera.Rotation += e.XDelta * 0.01f;
+            }
+        }
+
+        private void Update(object sender, FrameEventArgs e)
+        {
+            var window = (Window)sender;
+
+            // update the target to the mouse click position
+            if (window.IsButtonDown(MouseButton.Left))
+            {
+                var ray = camera.GetRay((int)window.MousePosition.X, (int)window.MousePosition.Y);
+                if (map.Intersect(ray, out Vector3 pos))
+                    target = pos;
+            }
+
+            // move toward the target
+            if (target != camera.Target)
+            {
+                var distance = (float)e.Time * speed;
+                var movement = target - camera.Target;
+                if (movement.Length < distance)
+                    camera.Target = target;
+                else
+                    camera.Target += movement.Normalized() * distance;
             }
         }
 
         public void Render(double dt)
         {
             shader.Use();
-            shader.Uniform("mvp", Camera.Transform);
+            shader.Uniform("mvp", camera.ViewProjection);
             map.Render(dt);
         }
     }
