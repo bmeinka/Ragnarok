@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics;
@@ -6,15 +7,21 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Ragnarok
 {
-    /// <summary>
-    /// Handles window creation, events, and the rendering loop.
-    /// </summary>
     class Window : GameWindow
     {
+        private const double click_delay = 0.5;
+        private Stopwatch click_timer;
+        private MouseButton click_button;
         public bool IsKeyDown(Key key) => Keyboard.GetState().IsKeyDown(key);
         public bool IsButtonDown(MouseButton button) => Mouse.GetState().IsButtonDown(button);
         public Vector2 MousePosition { get; private set; }
-        public Window() : base(1280, 720, GraphicsMode.Default, "Ragnarok") { }
+
+        public event EventHandler<MouseButtonEventArgs> DoubleClick;
+        public Window() : base(1280, 720, GraphicsMode.Default, "Ragnarok")
+        {
+            click_timer = new Stopwatch();
+            click_button = MouseButton.LastButton;
+        }
 
         protected override void OnLoad(EventArgs e)
         {
@@ -22,6 +29,7 @@ namespace Ragnarok
             GL.Enable(EnableCap.DepthTest);
 
             Game.CurrentScene = new Scene(this);
+            //Input.Mouse.Initialize(this);
 
             base.OnLoad(e);
         }
@@ -30,6 +38,15 @@ namespace Ragnarok
         {
             MousePosition = new Vector2(e.X, e.Y);
             base.OnMouseMove(e);
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            if (e.Button == click_button && click_timer.Elapsed.TotalSeconds < click_delay)
+                DoubleClick(this, e);
+            click_button = e.Button;
+            click_timer.Restart();
+            base.OnMouseDown(e);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)

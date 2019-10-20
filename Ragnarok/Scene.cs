@@ -23,7 +23,14 @@ namespace Ragnarok
             window.MouseMove += MouseMove;
             window.MouseWheel += Scroll;
             window.UpdateFrame += Update;
+            window.DoubleClick += DoubleClick;
             target = new Vector3(0, 0, 0);
+        }
+
+        private void DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Button == MouseButton.Right)
+                camera.Rotation = 0f;
         }
 
         private void Scroll(object sender, MouseWheelEventArgs e)
