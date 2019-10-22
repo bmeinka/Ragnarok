@@ -84,5 +84,6 @@ namespace Ragnarok
         public void Uniform(string name, float value) => GL.Uniform1(location(name), value);
         public void Uniform(string name, int value) => GL.Uniform1(location(name), value);
         public void Uniform(string name, Matrix4 value) => GL.UniformMatrix4(location(name), false, ref value);
+        public void Uniform(string name, Vector3 value) => GL.Uniform3(location(name), value);
     }
 }

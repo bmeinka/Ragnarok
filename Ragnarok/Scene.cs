@@ -9,17 +9,21 @@ namespace Ragnarok
     /// </summary>
     class Scene
     {
-        private Camera camera;
+        public Camera Camera { get; set; }
+
         private Map map;
-        private Shader shader;
+        private Shader map_shader;
+        private Sprite sprite;
         private float speed = 3f;
         private Vector3 target;
 
         public Scene(Window window)
         {
-            camera = new Camera(window);
+            Camera = new Camera(window);
             map = new Map();
-            shader = new Shader("shaders/core.vert", "shaders/core.frag");
+            map_shader = new Shader("shaders/core.vert", "shaders/core.frag");
+            sprite = new Sprite(new Vector2(1f, 2f), new Vector3(0f, 0.2f, 0.8f));
+            Sprite.Shader = new Shader("shaders/sprite.vert", "shaders/sprite.frag");
             Game.Mouse.Move += MouseMove;
             Game.Mouse.Scroll += Scroll;
             Game.Mouse.DoubleClick += DoubleClick;
@@ -31,14 +35,14 @@ namespace Ragnarok
         {
             if (e.Button == MouseButton.Right)
             {
-                camera.Rotation = 0f;
-                camera.Angle = MathHelper.DegreesToRadians(45f);
+                Camera.Rotation = 0f;
+                Camera.Angle = MathHelper.DegreesToRadians(45f);
             }
         }
 
         private void Scroll(object sender, MouseWheelEventArgs e)
         {
-            camera.Zoom -= e.DeltaPrecise * 0.1f;
+            Camera.Zoom -= e.DeltaPrecise * 0.1f;
         }
 
         private void MouseMove(object sender, MouseMoveEventArgs e)
@@ -47,9 +51,9 @@ namespace Ragnarok
             {
                 var keyboard = Keyboard.GetState();
                 if (keyboard.IsKeyDown(Key.LShift))
-                    camera.Angle -= e.YDelta * 0.01f;
+                    Camera.Angle -= e.YDelta * 0.01f;
                 else
-                    camera.Rotation += e.XDelta * 0.01f;
+                    Camera.Rotation += e.XDelta * 0.01f;
             }
         }
 
@@ -58,28 +62,33 @@ namespace Ragnarok
             // update the target to the mouse click position
             if (Game.Mouse.IsButtonDown(MouseButton.Left))
             {
-                var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
+                var ray = Camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
                 if (map.Intersect(ray, out Vector3 pos))
                     target = pos;
             }
 
             // move toward the target
-            if (target != camera.Target)
+            if (target != Camera.Target)
             {
                 var distance = (float)e.Time * speed;
-                var movement = target - camera.Target;
+                var movement = target - Camera.Target;
                 if (movement.Length < distance)
-                    camera.Target = target;
+                    Camera.Target = target;
                 else
-                    camera.Target += movement.Normalized() * distance;
+                    Camera.Target += movement.Normalized() * distance;
             }
         }
 
         public void Render(double dt)
         {
-            shader.Use();
-            shader.Uniform("mvp", camera.ViewProjection);
+            map_shader.Use();
+            map_shader.Uniform("mvp", Camera.ViewProjection);
             map.Render(dt);
+
+            sprite.Position = new Vector3(1f, 1f, 0f);
+            Sprite.Shader.Use();
+            Sprite.Shader.Uniform("mvp", Camera.ViewProjection);
+            sprite.Render(dt);
         }
     }
 }

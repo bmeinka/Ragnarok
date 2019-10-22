@@ -30,8 +30,9 @@ namespace Ragnarok
                 return origin * translation * rotation;
             }
         }
-        private Matrix4 projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, aspect_ratio, 1f, 100f);
-        private Matrix4 view => Matrix4.LookAt(Position, Target, Vector3.UnitZ);
+        public Matrix4 Projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, aspect_ratio, 1f, 100f);
+        public Matrix4 View => Matrix4.LookAt(Position, Target, Vector3.UnitZ);
+        public Matrix4 ViewProjection => View * Projection;
 
         /// <summary>
         /// The zoom level of the camera
@@ -42,7 +43,7 @@ namespace Ragnarok
         public float Angle { get { return angle; } set { angle = MathHelper.Clamp(value, angle_min, angle_max); } }
         public Vector3 Target { get; set; }
         public Vector3 Position => Target + new Vector3(relative_position);
-        public Matrix4 ViewProjection => view * projection;
+        public Vector3 Direction => (Target - Position).Normalized();
 
         public Camera(Window window)
         {
@@ -61,9 +62,9 @@ namespace Ragnarok
         public Ray GetRay(int x, int y)
         {
             var clip_space = new Vector4(2f * x / viewport.X - 1f, 1f - 2f * y / viewport.Y, -1f, 1f);
-            var view_space = clip_space * projection.Inverted();
+            var view_space = clip_space * Projection.Inverted();
             view_space = new Vector4(view_space.X, view_space.Y, -1f, 0f);
-            var world_space = view_space * view.Inverted();
+            var world_space = view_space * View.Inverted();
             return new Ray(Position, new Vector3(world_space));
         }
 

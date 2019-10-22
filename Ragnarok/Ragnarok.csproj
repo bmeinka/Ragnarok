@@ -62,6 +62,7 @@
     <Compile Include="Ray.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Shader.cs" />
+    <Compile Include="Sprite.cs" />
     <Compile Include="Window.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +72,12 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="shaders\sprite.vert">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="shaders\sprite.frag">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="shaders\core.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
