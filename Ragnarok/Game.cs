@@ -1,9 +1,4 @@
-﻿using System;
-using OpenTK;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ragnarok.Input;
 
 namespace Ragnarok
 {
@@ -12,15 +7,18 @@ namespace Ragnarok
     /// </summary>
     static class Game
     {
-        public static Window CurrentWindow { get; set; }
-        public static Scene CurrentScene { get; set; }
+        public static Window Window { get; private set; }
+        public static Scene Scene { get; set; }
+        public static Mouse Mouse { get; private set; }
  
         static void Main(string[] args)
         {
-            using (Window win = new Window())
+            using (Window window = new Window())
             {
-                CurrentWindow = win;
-                win.Run(60f);
+                Window = window;
+                Mouse = new Mouse(window);
+                Scene = new Scene(window);
+                window.Run(60f);
             }
         }
     }

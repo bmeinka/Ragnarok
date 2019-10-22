@@ -20,17 +20,20 @@ namespace Ragnarok
             camera = new Camera(window);
             map = new Map();
             shader = new Shader("shaders/core.vert", "shaders/core.frag");
-            window.MouseMove += MouseMove;
-            window.MouseWheel += Scroll;
+            Game.Mouse.Move += MouseMove;
+            Game.Mouse.Scroll += Scroll;
+            Game.Mouse.DoubleClick += DoubleClick;
             window.UpdateFrame += Update;
-            window.DoubleClick += DoubleClick;
             target = new Vector3(0, 0, 0);
         }
 
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e.Button == MouseButton.Right)
+            {
                 camera.Rotation = 0f;
+                camera.Angle = MathHelper.DegreesToRadians(45f);
+            }
         }
 
         private void Scroll(object sender, MouseWheelEventArgs e)
@@ -42,8 +45,8 @@ namespace Ragnarok
         {
             if (e.Mouse.IsButtonDown(MouseButton.Right))
             {
-                var window = (Window)sender;
-                if (window.IsKeyDown(Key.LShift))
+                var keyboard = Keyboard.GetState();
+                if (keyboard.IsKeyDown(Key.LShift))
                     camera.Angle -= e.YDelta * 0.01f;
                 else
                     camera.Rotation += e.XDelta * 0.01f;
@@ -52,12 +55,10 @@ namespace Ragnarok
 
         private void Update(object sender, FrameEventArgs e)
         {
-            var window = (Window)sender;
-
             // update the target to the mouse click position
-            if (window.IsButtonDown(MouseButton.Left))
+            if (Game.Mouse.IsButtonDown(MouseButton.Left))
             {
-                var ray = camera.GetRay((int)window.MousePosition.X, (int)window.MousePosition.Y);
+                var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
                 if (map.Intersect(ray, out Vector3 pos))
                     target = pos;
             }
