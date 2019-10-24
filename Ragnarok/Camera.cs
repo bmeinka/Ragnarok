@@ -20,16 +20,6 @@ namespace Ragnarok
 
         private const float offset = 10f;
 
-        private Vector4 relative_position
-        {
-            get
-            {
-                var origin = new Vector4(0f, 0f, 0f, 1f);
-                var translation = Matrix4.CreateTranslation(new Vector3(0f, 0f, offset));
-                var rotation = Matrix4.CreateRotationX(Angle) * Matrix4.CreateRotationZ(Rotation);
-                return origin * translation * rotation;
-            }
-        }
         public Matrix4 Projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, aspect_ratio, 1f, 100f);
         public Matrix4 View => Matrix4.LookAt(Position, Target, Vector3.UnitZ);
         public Matrix4 ViewProjection => View * Projection;
@@ -42,8 +32,16 @@ namespace Ragnarok
         public float Rotation { get; set; }
         public float Angle { get { return angle; } set { angle = MathHelper.Clamp(value, angle_min, angle_max); } }
         public Vector3 Target { get; set; }
-        public Vector3 Position => Target + new Vector3(relative_position);
-        public Vector3 Direction => (Target - Position).Normalized();
+        public Vector3 Position
+        {
+            get
+            {
+                var origin = Vector4.UnitW;
+                var translation = Matrix4.CreateTranslation(new Vector3(0f, 0f, offset));
+                var rotation = Matrix4.CreateRotationX(Angle) * Matrix4.CreateRotationZ(Rotation);
+                return Target + new Vector3(origin * translation * rotation);
+            }
+        }
 
         public Camera(Window window)
         {

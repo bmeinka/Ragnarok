@@ -7,7 +7,7 @@ namespace Ragnarok
 {
     class Shader
     {
-        private int id;
+        private readonly int id;
 
         /// <summary>
         /// Compile a shader from file
@@ -15,7 +15,7 @@ namespace Ragnarok
         /// <param name="path">Path to the file containing the shader source</param>
         /// <param name="type">The type of shader to compile</param>
         /// <returns></returns>
-        private static int create_shader(string path, ShaderType type)
+        private static int CreateShader(string path, ShaderType type)
         {
             int shader;
             string source;
@@ -38,7 +38,7 @@ namespace Ragnarok
             return shader;
         }
 
-        private int location(string name) => GL.GetUniformLocation(id, name);
+        private int Location(string name) => GL.GetUniformLocation(id, name);
 
         /// <summary>
         /// Create a shader program from vertex and fragment shader source files
@@ -48,9 +48,9 @@ namespace Ragnarok
         public Shader(string vertex_path, string fragment_path)
         {
             int vert_id, frag_id;
-            vert_id = create_shader(vertex_path, ShaderType.VertexShader);
+            vert_id = CreateShader(vertex_path, ShaderType.VertexShader);
             // if the fragment shader fails, the vertex shader needs cleaned up
-            try { frag_id = create_shader(fragment_path, ShaderType.FragmentShader); }
+            try { frag_id = CreateShader(fragment_path, ShaderType.FragmentShader); }
             catch
             {
                 GL.DeleteShader(vert_id);
@@ -81,9 +81,9 @@ namespace Ragnarok
 
         public void Use() => GL.UseProgram(id);
 
-        public void Uniform(string name, float value) => GL.Uniform1(location(name), value);
-        public void Uniform(string name, int value) => GL.Uniform1(location(name), value);
-        public void Uniform(string name, Matrix4 value) => GL.UniformMatrix4(location(name), false, ref value);
-        public void Uniform(string name, Vector3 value) => GL.Uniform3(location(name), value);
+        public void Uniform(string name, float value) => GL.Uniform1(Location(name), value);
+        public void Uniform(string name, int value) => GL.Uniform1(Location(name), value);
+        public void Uniform(string name, Matrix4 value) => GL.UniformMatrix4(Location(name), false, ref value);
+        public void Uniform(string name, Vector3 value) => GL.Uniform3(Location(name), value);
     }
 }

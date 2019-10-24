@@ -7,16 +7,17 @@ namespace Ragnarok
     /// <summary>
     /// A map in the world of Ragnarok
     /// </summary>
-    class Map
+    class Map : IDrawable
     {
+        public static Shader Shader { get; set; }
+        public Vector3 SpawnPoint => new Vector3(24f, 24f, 0f);
         /*
         The initial map object is going to be a very basic plane that will be used for testing purposes.
         Eventually, the test map will be phased out in favor of real game maps loaded from the grf.
          */
         private float[] vertices =
         {
-            // texture coordinates being upside down doesn't matter
-            // position  texture coordinates
+            // position   texture coordinates
              0f,  0f, 0f,  0f,  0f, // top-left 
             48f,  0f, 0f, 24f,  0f, // top-right
             48f, 48f, 0f, 24f, 24f, // bottom-right
@@ -24,15 +25,13 @@ namespace Ragnarok
             48f, 48f, 0f, 24f, 24f, // bottom-right
              0f, 48f, 0f,  0f, 24f, // bottom-left
         };
-        /* simple RGB array with only four pixels in it */
         private byte[] pixels =
         {
             // I don't understand why we need these extra zeros at the end of the row
             102, 102, 153, 170, 170, 204, 0, 0,
             170, 170, 204, 102, 102, 153, 0, 0,
         };
-
-        private int texture, vertex_array, vertex_buffer;
+        private readonly int texture, vertex_array, vertex_buffer;
 
         public Map()
         {
@@ -65,15 +64,21 @@ namespace Ragnarok
             GL.BindVertexArray(0);
         }
 
-        public void Render(double dt)
+        public void Draw(float delta)
         {
+            Shader.Use();
+            Shader.Uniform("mvp", Game.Scene.Camera.ViewProjection);
             GL.BindVertexArray(vertex_array);
-
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
-
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// Determine if a ray intersects with the map plane, and set the intersection point.
+        /// </summary>
+        /// <param name="ray">the ray to trace</param>
+        /// <param name="intersection">where on the plane the ray intersects</param>
+        /// <returns>true if the ray does intersect the plane</returns>
         public bool Intersect(Ray ray, out Vector3 intersection)
         {
             // Euclidean plane intersection:

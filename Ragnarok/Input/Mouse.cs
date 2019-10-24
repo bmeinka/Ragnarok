@@ -24,9 +24,6 @@ namespace Ragnarok.Input
         /// </summary>
         public int Y { get { return (int)position.Y; } }
 
-        /// <summary>
-        /// <see cref="NativeWindow.MouseMove"/>
-        /// </summary>
         public event EventHandler<MouseMoveEventArgs> Move { add { window.MouseMove += value; } remove { window.MouseMove -= value; } }
         public event EventHandler<MouseButtonEventArgs> Down { add { window.MouseDown += value; } remove { window.MouseDown -= value; } }
         public event EventHandler<MouseButtonEventArgs> Up { add { window.MouseUp += value; } remove { window.MouseUp -= value; } }

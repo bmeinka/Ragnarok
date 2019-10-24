@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics;
@@ -26,15 +25,14 @@ namespace Ragnarok
             var keyboard = Keyboard.GetState();
             if (keyboard.IsKeyDown(Key.Escape))
                 Exit();
+            Game.Scene.Update((float)e.Time);
             base.OnUpdateFrame(e);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-            Game.Scene.Render(e.Time);
-
+            Game.Scene.Draw((float)e.Time);
             SwapBuffers();
             base.OnRenderFrame(e);
         }

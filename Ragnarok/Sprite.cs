@@ -4,16 +4,11 @@ using OpenTK.Graphics.OpenGL;
 
 namespace Ragnarok
 {
-    class Sprite
+    class Sprite : IDrawable
     {
 
         public static Shader Shader { get; set; }
-        public Vector3 Position { get; set; }
         private int vertex_array, vertex_buffer;
-
-
-        // okay, so we need to make sure that we are dealing with the shader correctly and making sure there is a shader program.
-        // not sure how to go about doing that, though. Is it normal to have different shader programs for different "types" of objects?
 
         /// <summary>
         /// create a new sprite
@@ -51,19 +46,11 @@ namespace Ragnarok
             GL.BindVertexArray(0);
         }
 
-        public void Render(double dt)
+        public void Draw(float delta)
         {
-            var camera = Game.Scene.Camera;
+            // called within the context of a sprite batch
+            // the uniforms are already set up, just need to actually draw the triangles
             GL.BindVertexArray(vertex_array);
-
-            Shader.Use();
-
-            var rotate =  Matrix4.CreateRotationX(camera.Angle) * Matrix4.CreateRotationZ(camera.Rotation);
-            var model = rotate * Matrix4.CreateTranslation(Position);
-            var view_projection = camera.View * camera.Projection;
-
-            Shader.Uniform("mvp", model * view_projection);
-            //Shader.Uniform("mvp", model * view_projection);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
             GL.BindVertexArray(0);
         }
