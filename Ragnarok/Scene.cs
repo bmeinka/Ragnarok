@@ -14,6 +14,8 @@ namespace Ragnarok
         public Map Map { get; private set; }
         public Player Player { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
+        private readonly Monster[] monsters;
+        private readonly Sprite monster_sprite;
 
         public Scene(Window window)
         {
@@ -24,6 +26,10 @@ namespace Ragnarok
             // if the player is created before the spritebatch... null reference exception
             SpriteBatch = new SpriteBatch(this);
             Player = new Player(this);
+            monster_sprite = new Sprite(new Vector2(1f, 1f), new Vector3(1f, 0.5f, 0.4f));
+            monsters = new Monster[5];
+            for (var i = 0; i < 5; i++)
+                monsters[i] = new Monster(this, monster_sprite);
 
             Map.Shader = new Shader("shaders/core.vert", "shaders/core.frag");
             Sprite.Shader = new Shader("shaders/sprite.vert", "shaders/sprite.frag");
@@ -32,6 +38,8 @@ namespace Ragnarok
         public void Update(float delta)
         {
             Player.Update(delta);
+            foreach (var monster in monsters)
+                monster.Update(delta);
         }
 
         public void Draw(float delta)
@@ -41,6 +49,8 @@ namespace Ragnarok
             // drawing sprite-based objects only queues them up in the spritebatch
             // calling the draw method on the sprite batch actually draws them
             Player.Draw(delta);
+            foreach (var monster in monsters)
+                monster.Draw(delta);
             SpriteBatch.Draw(delta);
         }
     }

@@ -11,6 +11,8 @@ namespace Ragnarok
     {
         public static Shader Shader { get; set; }
         public Vector3 SpawnPoint => new Vector3(24f, 24f, 0f);
+        public float Width => 48f;
+        public float Height => 48f;
         /*
         The initial map object is going to be a very basic plane that will be used for testing purposes.
         Eventually, the test map will be phased out in favor of real game maps loaded from the grf.
