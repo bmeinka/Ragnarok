@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using OpenTK;
+using Ragnarok.Core.Graphics.Shaders;
 
-namespace Ragnarok
+namespace Ragnarok.Core.Graphics
 {
+    // TODO: integrate into a rendering pipeline
     class SpriteBatch : IDrawable
     {
         private class Item
@@ -18,11 +20,13 @@ namespace Ragnarok
 
         private readonly List<Item> items;
         private readonly Camera camera;
+        private readonly SpriteShader shader;
 
         public SpriteBatch(Scene scene)
         {
             items = new List<Item>();
             camera = scene.Camera;
+            shader = new SpriteShader();
         }
 
         /// <summary>
@@ -38,12 +42,12 @@ namespace Ragnarok
 
         public void Draw(float delta)
         {
-            Sprite.Shader.Use();
+            shader.Use();
             foreach(var item in items)
             {
                 var model = Matrix4.CreateRotationX(camera.Angle) * Matrix4.CreateRotationZ(camera.Rotation);
                 model *= Matrix4.CreateTranslation(item.Position);
-                Sprite.Shader.Uniform("mvp", model * camera.ViewProjection);
+                shader.MVP = model * camera.ViewProjection;
                 item.Sprite.Draw(delta);
             }
             items.Clear();

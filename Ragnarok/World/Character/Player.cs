@@ -1,6 +1,9 @@
 ﻿using OpenTK;
+using Ragnarok.Core;
+using Ragnarok.Core.Graphics;
+using Ragnarok.Gameplay;
 
-namespace Ragnarok.Character
+namespace Ragnarok.World
 {
     class Player : Character
     {

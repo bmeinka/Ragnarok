@@ -1,8 +1,9 @@
 ﻿using OpenTK;
 using OpenTK.Input;
-using System;
+using Ragnarok.Core;
+using Ragnarok.World;
 
-namespace Ragnarok.Character
+namespace Ragnarok.Gameplay
 {
     class PlayerController : IUpdateable
     {

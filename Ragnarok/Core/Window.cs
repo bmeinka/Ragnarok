@@ -4,7 +4,7 @@ using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
-namespace Ragnarok
+namespace Ragnarok.Core
 {
     class Window : GameWindow
     {

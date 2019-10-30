@@ -1,7 +1,6 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
 
-namespace Ragnarok
+namespace Ragnarok.Core
 {
     class Ray
     {

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using OpenTK;
 using OpenTK.Input;
 
-namespace Ragnarok.Input
+namespace Ragnarok.Core.Input
 {
     class Mouse : EventArgs
     {

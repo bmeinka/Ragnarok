@@ -1,9 +1,9 @@
-﻿using System;
-using OpenTK;
-using OpenTK.Input;
-using Ragnarok.Character;
+﻿using OpenTK;
+using Ragnarok.Core.Graphics;
+using Ragnarok.World;
+using Ragnarok.Core.Graphics.Shaders;
 
-namespace Ragnarok
+namespace Ragnarok.Core
 {
     /// <summary>
     /// Manages the currently rendered scene, including the Camera and Map.
@@ -14,13 +14,14 @@ namespace Ragnarok
         public Map Map { get; private set; }
         public Player Player { get; private set; }
         public SpriteBatch SpriteBatch { get; private set; }
+        private readonly CoreShader shader;
         private readonly Monster[] monsters;
         private readonly Sprite monster_sprite;
 
         public Scene(Window window)
         {
             Camera = new Camera(window);
-            Map = new Map();
+            Map = new Map(48f, 48f);
             // TODO: fix dependencies
             // maybe it isn't such a good idea to just be copying out the things that we need, because
             // if the player is created before the spritebatch... null reference exception
@@ -30,9 +31,7 @@ namespace Ragnarok
             monsters = new Monster[5];
             for (var i = 0; i < 5; i++)
                 monsters[i] = new Monster(this, monster_sprite);
-
-            Map.Shader = new Shader("shaders/core.vert", "shaders/core.frag");
-            Sprite.Shader = new Shader("shaders/sprite.vert", "shaders/sprite.frag");
+            shader = new CoreShader();
         }
 
         public void Update(float delta)
@@ -44,6 +43,8 @@ namespace Ragnarok
 
         public void Draw(float delta)
         {
+            shader.Use();
+            shader.MVP = Camera.ViewProjection;
             Map.Draw(delta);
 
             // drawing sprite-based objects only queues them up in the spritebatch

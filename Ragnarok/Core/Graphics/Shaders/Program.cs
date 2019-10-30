@@ -3,11 +3,11 @@ using System.IO;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
-namespace Ragnarok
+namespace Ragnarok.Core.Graphics.Shaders
 {
-    class Shader
+    abstract class Program
     {
-        private readonly int id;
+        protected readonly int id;
 
         /// <summary>
         /// Compile a shader from file
@@ -38,14 +38,12 @@ namespace Ragnarok
             return shader;
         }
 
-        private int Location(string name) => GL.GetUniformLocation(id, name);
-
         /// <summary>
         /// Create a shader program from vertex and fragment shader source files
         /// </summary>
         /// <param name="vertex_path">the path to the vertex shader source file</param>
         /// <param name="fragment_path">the path to the fragment shader source file</param>
-        public Shader(string vertex_path, string fragment_path)
+        public Program(string vertex_path, string fragment_path)
         {
             int vert_id, frag_id;
             vert_id = CreateShader(vertex_path, ShaderType.VertexShader);
@@ -79,11 +77,7 @@ namespace Ragnarok
             }
         }
 
+        protected int Location(string name) => GL.GetUniformLocation(id, name);
         public void Use() => GL.UseProgram(id);
-
-        public void Uniform(string name, float value) => GL.Uniform1(Location(name), value);
-        public void Uniform(string name, int value) => GL.Uniform1(Location(name), value);
-        public void Uniform(string name, Matrix4 value) => GL.UniformMatrix4(Location(name), false, ref value);
-        public void Uniform(string name, Vector3 value) => GL.Uniform3(Location(name), value);
     }
 }

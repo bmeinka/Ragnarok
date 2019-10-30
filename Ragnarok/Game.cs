@@ -1,5 +1,6 @@
 ﻿using System;
-using Ragnarok.Input;
+using Ragnarok.Core;
+using Ragnarok.Core.Input;
 
 namespace Ragnarok
 {

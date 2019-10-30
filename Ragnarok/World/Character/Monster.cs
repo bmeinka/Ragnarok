@@ -1,7 +1,8 @@
-﻿using System;
-using OpenTK;
+﻿using OpenTK;
+using Ragnarok.Core;
+using Ragnarok.Core.Graphics;
 
-namespace Ragnarok.Character
+namespace Ragnarok.World
 {
     class Monster : Character
     {

@@ -1,13 +1,13 @@
 ﻿using System;
 using OpenTK;
 
-namespace Ragnarok
+namespace Ragnarok.Core
 {
     class Camera
     {
 
         private Vector2 viewport;
-        private float aspect_ratio { get { return viewport.X / viewport.Y; } }
+        private float AspectRatio { get { return viewport.X / viewport.Y; } }
 
         private const float fov_min = 0.3f;
         private const float fov_max = 1.3f;
@@ -20,7 +20,7 @@ namespace Ragnarok
 
         private const float offset = 10f;
 
-        public Matrix4 Projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, aspect_ratio, 1f, 100f);
+        public Matrix4 Projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, AspectRatio, 1f, 100f);
         public Matrix4 View => Matrix4.LookAt(Position, Target, Vector3.UnitZ);
         public Matrix4 ViewProjection => View * Projection;
 
@@ -46,7 +46,7 @@ namespace Ragnarok
         public Camera(Window window)
         {
             viewport = new Vector2(window.Width, window.Height);
-            window.Resize += Resize;
+            window.Resize += (object sender, EventArgs e) => viewport = new Vector2(Game.Window.Width, Game.Window.Height);
         }
 
         public Camera(int width, int height) => viewport = new Vector2(width, height);
@@ -64,12 +64,6 @@ namespace Ragnarok
             view_space = new Vector4(view_space.X, view_space.Y, -1f, 0f);
             var world_space = view_space * View.Inverted();
             return new Ray(Position, new Vector3(world_space));
-        }
-
-        private void Resize(object sender, EventArgs e)
-        {
-            var window = (Window)sender;
-            viewport = new Vector2(window.Width, window.Height);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using OpenTK;
+using Ragnarok.Core.Graphics;
 
-namespace Ragnarok.Character
+namespace Ragnarok.World
 {
     /// <summary>
     /// A Player, Monster or NPC. Drawn as a Sprite in the game world.
