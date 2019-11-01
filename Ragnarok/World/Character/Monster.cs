@@ -6,14 +6,7 @@ namespace Ragnarok.World
 {
     class Monster : Character
     {
-        public Monster(Scene scene, Sprite sprite) : base(scene.SpriteBatch)
-        {
-            Sprite = sprite;
-            var x = (float)Game.Random.NextDouble() * scene.Map.Width;
-            var y = (float)Game.Random.NextDouble() * scene.Map.Height;
-            Position = new Vector3(x, y, 0f);
-        }
-
+        public Monster(Scene scene, Sprite sprite, Vector2 position) : base(scene.SpriteBatch, scene.World, position) => Sprite = sprite;
         public override void Update(float delta)
         {
             // TODO: implement moving around

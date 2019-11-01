@@ -55,11 +55,12 @@
     <Compile Include="Core\Graphics\Shaders\CoreShader.cs" />
     <Compile Include="Core\Graphics\Shaders\SpriteShader.cs" />
     <Compile Include="Core\Graphics\Shaders\Uniform.cs" />
+    <Compile Include="Core\Physics\Body.cs" />
+    <Compile Include="Core\Physics\PhysicsWorld.cs" />
     <Compile Include="World\Character\Character.cs" />
     <Compile Include="World\Character\Monster.cs" />
     <Compile Include="World\Character\Player.cs" />
     <Compile Include="Gameplay\PlayerController.cs" />
-    <Compile Include="IGameObject.cs" />
     <Compile Include="Core\Input\Mouse.cs" />
     <Compile Include="World\Map.cs" />
     <Compile Include="Game.cs" />
@@ -75,8 +76,6 @@
     <Compile Include="Core\Graphics\Sprite.cs" />
     <Compile Include="Core\Graphics\SpriteBatch.cs" />
     <Compile Include="Core\Window.cs" />
-    <Compile Include="Core\Physics\Box.cs" />
-    <Compile Include="Core\Physics\Circle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

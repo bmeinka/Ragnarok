@@ -11,7 +11,7 @@ namespace Ragnarok.World
     {
         private readonly Mesh mesh;
         private readonly Vector2 size;
-        public Vector3 SpawnPoint => new Vector3(24f, 24f, 0f);
+        public Vector2 SpawnPoint => new Vector2(24f, 24f);
 
         public float Width => size.X;
         public float Height => size.Y;
@@ -30,7 +30,7 @@ namespace Ragnarok.World
         /// <param name="ray">the ray to trace</param>
         /// <param name="intersection">where on the plane the ray intersects</param>
         /// <returns>true if the ray does intersect the plane</returns>
-        public bool Intersect(Ray ray, out Vector3 intersection)
+        public bool Intersect(Ray ray, out Vector2 intersection)
         {
             // Euclidean plane intersection:
             // Variables:
@@ -45,12 +45,12 @@ namespace Ragnarok.World
             var origin = Vector3.Zero;
             if (Vector3.Dot(normal, ray.Direction) == 0)
             {
-                intersection = Vector3.Zero;
+                intersection = Vector2.Zero;
                 return false;
             }
             var w = ray.Origin - origin;
             var s = Vector3.Dot(-normal, w) / Vector3.Dot(normal, ray.Direction);
-            intersection = ray.Parametric(s);
+            intersection = new Vector2(ray.Parametric(s).X, ray.Parametric(s).Y);
             return true;
         }
     }

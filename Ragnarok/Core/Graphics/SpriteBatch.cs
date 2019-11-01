@@ -5,7 +5,7 @@ using Ragnarok.Core.Graphics.Shaders;
 namespace Ragnarok.Core.Graphics
 {
     // TODO: integrate into a rendering pipeline
-    class SpriteBatch : IDrawable
+    class SpriteBatch
     {
         private class Item
         {

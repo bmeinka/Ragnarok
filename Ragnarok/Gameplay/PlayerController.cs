@@ -5,7 +5,7 @@ using Ragnarok.World;
 
 namespace Ragnarok.Gameplay
 {
-    class PlayerController : IUpdateable
+    class PlayerController
     {
         /// <summary>
         /// used to scale the angle adjustments to make sure they aren't too fast or slow
@@ -59,8 +59,8 @@ namespace Ragnarok.Gameplay
             if (Game.Mouse.IsButtonDown(MouseButton.Left))
             {
                 var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
-                if (map.Intersect(ray, out Vector3 pos))
-                    player.Target = pos;
+                if (map.Intersect(ray, out Vector2 pos))
+                    player.MoveTo(pos);
             }
             camera.Target = player.Position;
         }
