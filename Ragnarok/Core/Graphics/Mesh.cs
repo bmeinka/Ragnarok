@@ -54,7 +54,7 @@ namespace Ragnarok.Core.Graphics
             base.Dispose();
         }
 
-        public override void Draw(float delta)
+        public override void Draw()
         {
             GL.BindVertexArray(vao);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6);

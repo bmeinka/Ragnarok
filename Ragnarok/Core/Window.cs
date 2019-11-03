@@ -32,7 +32,7 @@ namespace Ragnarok.Core
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            Game.Scene.Draw((float)e.Time);
+            Game.Scene.Draw();
             SwapBuffers();
             base.OnRenderFrame(e);
         }

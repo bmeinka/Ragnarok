@@ -29,6 +29,6 @@ namespace Ragnarok.Core.Graphics
             GL.BindVertexArray(0);
         }
 
-        public abstract void Draw(float delta);
+        public abstract void Draw();
     }
 }

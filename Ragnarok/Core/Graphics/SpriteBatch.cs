@@ -7,24 +7,13 @@ namespace Ragnarok.Core.Graphics
     // TODO: integrate into a rendering pipeline
     class SpriteBatch
     {
-        private class Item
-        {
-            public Sprite Sprite { get; private set; }
-            public Vector3 Position { get; private set; }
-            public Item(Sprite sprite, Vector3 position)
-            {
-                Sprite = sprite;
-                Position = position;
-            }
-        }
-
-        private readonly List<Item> items;
+        private readonly List<(Sprite sprite, Vector3 position)> items;
         private readonly Camera camera;
         private readonly SpriteShader shader;
 
         public SpriteBatch(Scene scene)
         {
-            items = new List<Item>();
+            items = new List<(Sprite sprite, Vector3 position)>();
             camera = scene.Camera;
             shader = new SpriteShader();
         }
@@ -38,17 +27,17 @@ namespace Ragnarok.Core.Graphics
         /// Everything in the queue is drawn when <see cref="SpriteBatch.Draw(float)"/> is called.
         /// After drawing everything, the queue gets cleared.
         /// </remarks>
-        public void Add(Sprite sprite, Vector3 position) => items.Add(new Item(sprite, position));
+        public void Add(Sprite sprite, Vector3 position) => items.Add((sprite, position));
 
-        public void Draw(float delta)
+        public void Draw()
         {
             shader.Use();
-            foreach(var item in items)
+            foreach(var (sprite, position) in items)
             {
                 var model = Matrix4.CreateRotationX(camera.Angle) * Matrix4.CreateRotationZ(camera.Rotation);
-                model *= Matrix4.CreateTranslation(item.Position);
+                model *= Matrix4.CreateTranslation(position);
                 shader.MVP = model * camera.ViewProjection;
-                item.Sprite.Draw(delta);
+                sprite.Draw();
             }
             items.Clear();
         }

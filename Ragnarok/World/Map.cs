@@ -22,7 +22,7 @@ namespace Ragnarok.World
             mesh = new Mesh(width, height);
         }
 
-        public void Draw(float delta) => mesh.Draw(delta);
+        public void Draw() => mesh.Draw();
 
         /// <summary>
         /// Determine if a ray intersects with the map plane, and set the intersection point.

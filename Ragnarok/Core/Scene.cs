@@ -49,18 +49,18 @@ namespace Ragnarok.Core
             World.Update(delta);
         }
 
-        public void Draw(float delta)
+        public void Draw()
         {
             shader.Use();
             shader.MVP = Camera.ViewProjection;
-            Map.Draw(delta);
+            Map.Draw();
 
             // drawing sprite-based objects only queues them up in the spritebatch
             // calling the draw method on the sprite batch actually draws them
-            Player.Draw(delta);
+            Player.Draw();
             foreach (var monster in monsters)
-                monster.Draw(delta);
-            SpriteBatch.Draw(delta);
+                monster.Draw();
+            SpriteBatch.Draw();
         }
     }
 }
