@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,9 +57,10 @@
     <Compile Include="Core\Graphics\Shaders\SpriteShader.cs" />
     <Compile Include="Core\Graphics\Shaders\Uniform.cs" />
     <Compile Include="Core\Physics\Circle.cs" />
+    <Compile Include="Core\Physics\Collision.cs" />
     <Compile Include="Core\Physics\DynamicBody.cs" />
     <Compile Include="Core\Physics\ICollisionShape.cs" />
-    <Compile Include="Core\Physics\IPhysicsBody.cs" />
+    <Compile Include="Core\Physics\PhysicsBody.cs" />
     <Compile Include="Core\Physics\PhysicsWorld.cs" />
     <Compile Include="Core\Physics\StaticBody.cs" />
     <Compile Include="World\Character\Character.cs" />

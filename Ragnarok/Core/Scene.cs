@@ -28,7 +28,7 @@ namespace Ragnarok.Core
             // maybe it isn't such a good idea to just be copying out the things that we need, because
             // if the player is created before the spritebatch... null reference exception
             SpriteBatch = new SpriteBatch(this);
-            World = new PhysicsWorld();
+            World = new PhysicsWorld(Map.Width, Map.Height);
             Player = new Player(this);
             monster_sprite = new Sprite(new Vector2(1f, 1f), new Vector3(1f, 0.5f, 0.4f));
             monsters = new Monster[5];

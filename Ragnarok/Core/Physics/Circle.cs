@@ -4,9 +4,10 @@ namespace Ragnarok.Core.Physics
 {
     struct Circle : ICollisionShape
     {
-        private readonly float radius;
-        public Vector2 Max(Vector2 position) => new Vector2(position.X + radius, position.Y + radius);
-        public Vector2 Min(Vector2 position) => new Vector2(position.X - radius, position.Y - radius);
-        public Circle(float radius) => this.radius = radius;
+        public float HalfWidth { get; }
+        public float HalfHeight => HalfWidth;
+        public Vector2 Min(Vector2 position) => new Vector2(position.X - HalfWidth, position.Y - HalfHeight);
+        public Vector2 Max(Vector2 position) => new Vector2(position.X + HalfWidth, position.Y + HalfHeight);
+        public Circle(float radius) => HalfWidth = radius;
     }
 }

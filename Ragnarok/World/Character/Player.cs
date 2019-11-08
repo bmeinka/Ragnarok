@@ -10,7 +10,7 @@ namespace Ragnarok.World
     {
         private readonly PlayerController controller;
         private readonly DynamicBody body;
-        protected override IPhysicsBody Body => body;
+        protected override PhysicsBody Body => body;
 
         public Player(Scene scene) : base(scene.SpriteBatch)
         {

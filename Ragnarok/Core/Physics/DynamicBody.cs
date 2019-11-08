@@ -2,14 +2,10 @@
 
 namespace Ragnarok.Core.Physics
 {
-    class DynamicBody : IPhysicsBody
+    class DynamicBody : PhysicsBody
     {
-        public float MovementSpeed => 3f;
         private Vector2? destination, direction;
-        public float InverseMass => 1f; // all dynamic bodies have the same mass, so it doesn't really matter the number here
-        public Vector2 Position { get; set; }
-        public ICollisionShape Shape { get; private set; }
-        public Vector2 Destination
+        public override Vector2 Destination
         {
             get
             {
@@ -24,12 +20,12 @@ namespace Ragnarok.Core.Physics
             }
         }
 
-        public DynamicBody(Vector2 position, ICollisionShape shape)
+        public DynamicBody(Vector2 position, ICollisionShape shape) : base(position, shape)
         {
-            Position = position;
-            Shape = shape;
             destination = null;
             direction = null;
+            MovementSpeed = 3f;
+            InverseMass = 1f;
         }
 
         public void Move(Vector2 direction)

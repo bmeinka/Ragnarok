@@ -10,7 +10,7 @@ namespace Ragnarok.World
     abstract class Character
     {
         protected readonly SpriteBatch sprite_batch;
-        protected abstract IPhysicsBody Body { get; }
+        protected abstract PhysicsBody Body { get; }
         public Vector3 Position => new Vector3(Body.Position.X, Body.Position.Y, 0f);
         public Sprite Sprite { get; set; }
 
