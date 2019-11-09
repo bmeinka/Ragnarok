@@ -63,6 +63,9 @@
     <Compile Include="Core\Physics\PhysicsBody.cs" />
     <Compile Include="Core\Physics\PhysicsWorld.cs" />
     <Compile Include="Core\Physics\StaticBody.cs" />
+    <Compile Include="Core\Random.cs" />
+    <Compile Include="Core\Timer.cs" />
+    <Compile Include="Gameplay\MonsterController.cs" />
     <Compile Include="World\Character\Character.cs" />
     <Compile Include="World\Character\Monster.cs" />
     <Compile Include="World\Character\Player.cs" />

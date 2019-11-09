@@ -14,7 +14,7 @@ namespace Ragnarok.Core.Physics
                     return (Vector2)destination;
                 // if there is a direction, return it scaled up with the movement speed
                 if (direction != null)
-                    return (Vector2)direction * MovementSpeed;
+                    return Position + (Vector2)direction * MovementSpeed;
                 // otherwise, return the current position (no movement)
                 return Position;
             }

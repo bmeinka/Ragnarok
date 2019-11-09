@@ -1,5 +1,4 @@
-﻿using System;
-using Ragnarok.Core;
+﻿using Ragnarok.Core;
 using Ragnarok.Core.Input;
 
 namespace Ragnarok

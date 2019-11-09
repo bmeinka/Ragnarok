@@ -34,8 +34,8 @@ namespace Ragnarok.Core
             monsters = new Monster[5];
             for (var i = 0; i < 5; i++)
             {
-                var x = (float)Game.Random.Next(1, (int)Map.Width-1);
-                var y = (float)Game.Random.Next(1, (int)Map.Height-1);
+                var x = Game.Random.Float(0f, Map.Width);
+                var y = Game.Random.Float(0f, Map.Height);
                 monsters[i] = new Monster(this, monster_sprite, new Vector2(x, y));
             }
             shader = new CoreShader();
