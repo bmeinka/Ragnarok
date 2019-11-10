@@ -9,16 +9,17 @@ namespace Ragnarok.Core
         private Vector2 viewport;
         private float AspectRatio { get { return viewport.X / viewport.Y; } }
 
-        private const float fov_min = 0.3f;
-        private const float fov_max = 1.3f;
-        private float field_of_view { get { return (fov_max - fov_min) * Zoom + fov_min; } }
-        private float zoom = 0.5f;
+        private const float field_of_view = (float)Math.PI / 4f;
 
         private const float angle_min = 0.018f; // ~1 degree
         private const float angle_max = 1.555f; // ~89 degrees
-        private float angle = MathHelper.DegreesToRadians(45f);
 
-        private const float offset = 10f;
+        private float angle = (float)Math.PI / 4f; // 45 degrees
+        private float zoom = 0.5f;
+
+        private const float offset_min = 10f;
+        private const float offset_max = 20f;
+        private float Offset => offset_min + zoom * (offset_max - offset_min);
 
         public Matrix4 Projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, AspectRatio, 1f, 100f);
         public Matrix4 View => Matrix4.LookAt(Position, Target, Vector3.UnitZ);
@@ -38,7 +39,7 @@ namespace Ragnarok.Core
             get
             {
                 var origin = Vector4.UnitW;
-                var translation = Matrix4.CreateTranslation(new Vector3(0f, 0f, offset));
+                var translation = Matrix4.CreateTranslation(new Vector3(0f, 0f, Offset));
                 var rotation = Matrix4.CreateRotationX(Angle) * Matrix4.CreateRotationZ(Rotation);
                 return Target + new Vector3(origin * translation * rotation);
             }
