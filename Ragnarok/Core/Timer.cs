@@ -27,6 +27,7 @@ namespace Ragnarok.Core
         public void Start() => started = true;
         public void Stop() => started = false;
         public void Reset() => elapsed = 0f;
+        public void Restart() { Reset(); Start(); }
 
         private void Update(object sender, FrameEventArgs e)
         {

@@ -43,6 +43,7 @@ namespace Ragnarok.Core
 
         public void Update(float delta)
         {
+            Camera.Update(delta);
             Player.Update(delta);
             foreach (var monster in monsters)
                 monster.Update(delta);

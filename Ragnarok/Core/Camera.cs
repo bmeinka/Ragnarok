@@ -23,6 +23,7 @@ namespace Ragnarok.Core
         public Matrix4 Projection => Matrix4.CreatePerspectiveFieldOfView(field_of_view, AspectRatio, 1f, 100f);
         public Matrix4 View => Matrix4.LookAt(Position, Target, Vector3.UnitZ);
         public Matrix4 ViewProjection => View * Projection;
+        public Ray MouseRay { get; private set; }
 
         /// <summary>
         /// The zoom level of the camera
@@ -48,9 +49,7 @@ namespace Ragnarok.Core
             viewport = new Vector2(window.Width, window.Height);
             window.Resize += (object sender, EventArgs e) => viewport = new Vector2(Game.Window.Width, Game.Window.Height);
         }
-
-        public Camera(int width, int height) => viewport = new Vector2(width, height);
-        public Camera(Vector2 viewport) => this.viewport = viewport; // Vector2 is a struct, so not a reference, but a value
+        public void Update(float delta) => MouseRay = GetRay(Game.Mouse.X, Game.Mouse.Y);
 
         /// <summary>
         /// get a ray through world space from viewport space
