@@ -56,6 +56,7 @@
     <Compile Include="Core\Graphics\Shaders\CoreShader.cs" />
     <Compile Include="Core\Graphics\Shaders\SpriteShader.cs" />
     <Compile Include="Core\Graphics\Shaders\Uniform.cs" />
+    <Compile Include="Core\IScene.cs" />
     <Compile Include="Core\Physics\Circle.cs" />
     <Compile Include="Core\Physics\Collision.cs" />
     <Compile Include="Core\Physics\DynamicBody.cs" />

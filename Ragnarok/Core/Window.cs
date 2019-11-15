@@ -15,9 +15,15 @@ namespace Ragnarok.Core
             GL.ClearColor(0.8f, 0.2f, 1.0f, 1.0f);
             GL.Enable(EnableCap.DepthTest);
 
-            Game.Scene = new Scene(this);
+            Game.Scene.Load();
 
             base.OnLoad(e);
+        }
+
+        protected override void OnUnload(EventArgs e)
+        {
+            Game.Scene.Unload();
+            base.OnUnload(e);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)

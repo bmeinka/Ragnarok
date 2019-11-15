@@ -9,7 +9,7 @@ namespace Ragnarok.Core
     /// <summary>
     /// Manages the currently rendered scene, including the Camera and Map.
     /// </summary>
-    class Scene
+    class Scene : IScene
     {
         public Camera Camera { get; private set; }
         public Map Map { get; private set; }
@@ -63,5 +63,8 @@ namespace Ragnarok.Core
                 monster.Draw();
             SpriteBatch.Draw();
         }
+
+        public void Load() { }
+        public void Unload() { }
     }
 }

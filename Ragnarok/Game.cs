@@ -9,7 +9,7 @@ namespace Ragnarok
     static class Game
     {
         public static Window Window { get; private set; }
-        public static Scene Scene { get; set; }
+        public static IScene Scene { get; set; }
         public static Mouse Mouse { get; private set; }
         public static Random Random { get; private set; }
  
@@ -18,6 +18,8 @@ namespace Ragnarok
             Random = new Random();
             using (Window window = new Window())
             {
+                // TODO: refactor scene out of core (and put it in gameplay)
+                // TODO: refactor Game into core and centralize the global state somehow
                 Window = window;
                 Mouse = new Mouse(window);
                 Scene = new Scene(window);
