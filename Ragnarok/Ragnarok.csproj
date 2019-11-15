@@ -69,7 +69,7 @@
     <Compile Include="Core\Timer.cs" />
     <Compile Include="Gameplay\MainScene.cs" />
     <Compile Include="Gameplay\MonsterController.cs" />
-    <Compile Include="World\Character\Character.cs" />
+    <Compile Include="World\Character\Mob.cs" />
     <Compile Include="World\Character\Monster.cs" />
     <Compile Include="World\Character\Player.cs" />
     <Compile Include="Gameplay\PlayerController.cs" />
