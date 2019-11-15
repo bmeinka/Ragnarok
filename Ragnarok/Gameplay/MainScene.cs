@@ -2,7 +2,6 @@
 using Ragnarok.Core;
 using Ragnarok.Core.Graphics;
 using Ragnarok.Core.Graphics.Shaders;
-using Ragnarok.Core.Physics; // TODO: move to World.Map
 using Ragnarok.World;
 
 namespace Ragnarok.Gameplay
