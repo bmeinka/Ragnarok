@@ -11,9 +11,9 @@ namespace Ragnarok.World
         private readonly DynamicBody body;
         private readonly MonsterController controller;
         protected override PhysicsBody Body => body;
-        public Monster(Scene scene, Sprite sprite, Vector2 position) : base(scene.SpriteBatch)
+        public Monster(SpriteBatch sb, Sprite sprite, PhysicsWorld world, Vector2 position) : base(sb)
         {
-            body = scene.World.AddDynamicBody(position, new Circle(0.5f));
+            body = world.AddDynamicBody(position, new Circle(0.5f));
             body.MoveTo(position);
             Sprite = sprite;
             controller = new MonsterController(this);

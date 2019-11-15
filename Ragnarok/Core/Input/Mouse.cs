@@ -5,7 +5,7 @@ using OpenTK.Input;
 
 namespace Ragnarok.Core.Input
 {
-    class Mouse : EventArgs
+    class Mouse
     {
         private const double click_delay = 0.5;
         private readonly Window window;

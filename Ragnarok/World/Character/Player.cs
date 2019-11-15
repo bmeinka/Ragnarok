@@ -12,11 +12,11 @@ namespace Ragnarok.World
         private readonly DynamicBody body;
         protected override PhysicsBody Body => body;
 
-        public Player(Scene scene) : base(scene.SpriteBatch)
+        public Player(SpriteBatch sb, Map map, PhysicsWorld world, Camera camera) : base(sb) // TODO: integrate physics world into map object
         {
-            body = scene.World.AddDynamicBody(scene.Map.SpawnPoint, new Circle(0.5f));
+            body = world.AddDynamicBody(map.SpawnPoint, new Circle(0.5f));
             Sprite = new Sprite(new Vector2(1f, 2f), new Vector3(0f, 0.5f, 0.8f));
-            controller = new PlayerController(scene, this);
+            controller = new PlayerController(camera, map, this); // TODO: move this to the scene
         }
         public void MoveTo(Vector2 position) => body.MoveTo(position);
         public override void Update(float delta)

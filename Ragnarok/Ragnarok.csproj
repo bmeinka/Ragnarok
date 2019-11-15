@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Camera.cs" />
+    <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Graphics\Drawable.cs" />
     <Compile Include="Core\Graphics\Mesh.cs" />
     <Compile Include="Core\Graphics\Shaders\CoreShader.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Core\Physics\StaticBody.cs" />
     <Compile Include="Core\Random.cs" />
     <Compile Include="Core\Timer.cs" />
+    <Compile Include="Gameplay\MainScene.cs" />
     <Compile Include="Gameplay\MonsterController.cs" />
     <Compile Include="World\Character\Character.cs" />
     <Compile Include="World\Character\Monster.cs" />
@@ -73,7 +75,7 @@
     <Compile Include="Gameplay\PlayerController.cs" />
     <Compile Include="Core\Input\Mouse.cs" />
     <Compile Include="World\Map.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="Ragnarok.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -81,7 +83,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Core\Ray.cs" />
-    <Compile Include="Core\Scene.cs" />
     <Compile Include="Core\Graphics\Shaders\Program.cs" />
     <Compile Include="Core\Graphics\Sprite.cs" />
     <Compile Include="Core\Graphics\SpriteBatch.cs" />

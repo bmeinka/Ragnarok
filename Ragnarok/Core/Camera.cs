@@ -45,10 +45,10 @@ namespace Ragnarok.Core
             }
         }
 
-        public Camera(Window window)
+        public Camera()
         {
-            viewport = new Vector2(window.Width, window.Height);
-            window.Resize += (object sender, EventArgs e) => viewport = new Vector2(Game.Window.Width, Game.Window.Height);
+            viewport = new Vector2(Game.Window.Width, Game.Window.Height);
+            Game.Window.Resize += (object sender, EventArgs e) => viewport = new Vector2(Game.Window.Width, Game.Window.Height);
         }
         public void Update(float delta) => MouseRay = GetRay(Game.Mouse.X, Game.Mouse.Y);
 

@@ -11,10 +11,10 @@ namespace Ragnarok.Core.Graphics
         private readonly Camera camera;
         private readonly SpriteShader shader;
 
-        public SpriteBatch(Scene scene)
+        public SpriteBatch(Camera camera)
         {
             items = new List<(Sprite sprite, Vector3 position)>();
-            camera = scene.Camera;
+            this.camera = camera;
             shader = new SpriteShader();
         }
 

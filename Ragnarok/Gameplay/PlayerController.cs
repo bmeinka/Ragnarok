@@ -29,11 +29,12 @@ namespace Ragnarok.Gameplay
         private readonly Map map;
         private readonly Stopwatch timer;
 
-        public PlayerController(Scene scene, Player player)
+        public PlayerController(Camera camera, Map map, Player player)
         {
+            // TODO: single responsibility; split out camera controls to its own controller
             this.player = player;
-            camera = scene.Camera;
-            map = scene.Map;
+            this.camera = camera;
+            this.map = map;
             timer = new Stopwatch();
 
             Game.Mouse.Down += StartMovement;
