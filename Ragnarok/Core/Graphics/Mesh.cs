@@ -1,10 +1,13 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using OpenTK;
+using OpenTK.Graphics.OpenGL;
 
 namespace Ragnarok.Core.Graphics
 {
     class Mesh : Drawable
     {
         private readonly int tex;
+
+        public Plane Plane => new Plane { Normal = Vector3.UnitZ, Origin = Vector3.Zero };
 
         public Mesh(float w, float h)
         {

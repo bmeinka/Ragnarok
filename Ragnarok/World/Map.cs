@@ -53,33 +53,23 @@ namespace Ragnarok.World
         public void Update(float delta) => world.Update(delta);
 
         /// <summary>
-        /// Determine if a ray intersects with the map plane, and set the intersection point.
+        /// determine if the mouse is interescting the map, and where
         /// </summary>
-        /// <param name="ray">the ray to trace</param>
-        /// <param name="intersection">where on the plane the ray intersects</param>
-        /// <returns>true if the ray does intersect the plane</returns>
-        public bool Intersect(Ray ray, out Vector2 intersection) // TODO: move to core (method on Ray class)
+        /// <param name="camera">the camera the map is viewed from</param>
+        /// <param name="position">the map position the mouse is at (if any)</param>
+        /// <returns>true if the mouse is intersectiong, and false otherwise</returns>
+        public bool MouseIntersection(Camera camera, out Vector2 position)
         {
-            // Euclidean plane intersection:
-            // Variables:
-            //   Po: ray origin
-            //   Vo: plane origin
-            //   u:  ray direction
-            //   n:  plane normal (up vector)
-            //   w:  Po - Vo
-            // using the parametric line function P(s) = Po + su
-            // the intersection point s can be determined by: -n * w / n * u
-            var normal = Vector3.UnitZ;
-            var origin = Vector3.Zero;
-            if (Vector3.Dot(normal, ray.Direction) == 0)
+            var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
+            var t = ray.Intersect(mesh.Plane);
+            if (t < 0)
             {
-                intersection = Vector2.Zero;
+                position = Vector2.Zero;
                 return false;
             }
-            var w = ray.Origin - origin;
-            var s = Vector3.Dot(-normal, w) / Vector3.Dot(normal, ray.Direction);
-            intersection = new Vector2(ray.Parametric(s).X, ray.Parametric(s).Y);
-            return true;
+            position = ray.Parametric(t).Xy;
+            // only consider intersections that fall within map bounds
+            return (position.X >= 0 && position.X <= Width && position.Y >= 0 && position.Y <= Height);
         }
     }
 }

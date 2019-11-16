@@ -65,6 +65,7 @@
     <Compile Include="Core\Physics\PhysicsBody.cs" />
     <Compile Include="Core\Physics\PhysicsWorld.cs" />
     <Compile Include="Core\Physics\StaticBody.cs" />
+    <Compile Include="Core\Plane.cs" />
     <Compile Include="Core\Random.cs" />
     <Compile Include="Core\Timer.cs" />
     <Compile Include="Gameplay\MainScene.cs" />

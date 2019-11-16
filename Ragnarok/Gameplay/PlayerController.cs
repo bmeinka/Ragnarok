@@ -45,10 +45,8 @@ namespace Ragnarok.Gameplay
 
         private void Move()
         {
-            // TODO: figure out null reference from camera.MouseRay
-            var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
-            if (map.Intersect(ray, out Vector2 pos))
-                player.MoveTo(pos);
+            if (map.MouseIntersection(camera, out Vector2 position))
+                player.MoveTo(position);
         }
 
         private void StartMovement(object sender, MouseButtonEventArgs e)
