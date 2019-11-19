@@ -72,13 +72,14 @@
     <Compile Include="Gameplay\Controls\Controller.cs" />
     <Compile Include="Gameplay\Controls\IControlState.cs" />
     <Compile Include="Gameplay\Controls\IdleState.cs" />
+    <Compile Include="Gameplay\Controls\MoveState.cs" />
     <Compile Include="Gameplay\MainScene.cs" />
     <Compile Include="Gameplay\MonsterController.cs" />
     <Compile Include="Gameplay\MouseTarget.cs" />
     <Compile Include="World\Character\Mob.cs" />
     <Compile Include="World\Character\Monster.cs" />
     <Compile Include="World\Character\Player.cs" />
-    <Compile Include="Gameplay\PlayerController.cs" />
+    <Compile Include="Gameplay\Controls\PlayerController.cs" />
     <Compile Include="Core\Input\Mouse.cs" />
     <Compile Include="World\Map.cs" />
     <Compile Include="Ragnarok.cs" />

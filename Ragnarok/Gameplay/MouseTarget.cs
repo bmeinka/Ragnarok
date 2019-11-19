@@ -28,9 +28,9 @@ namespace Ragnarok.Gameplay
             foreach (var monster in map.Monsters)
             {
                 plane.Normal = -(camera.Target - camera.Position).Normalized();
-                plane.Origin = monster.Position;
+                plane.Origin = new Vector3(monster.Position.X, monster.Position.Y, 0f);
                 var pos = ray.Parametric(ray.Intersect(plane));
-                pos -= monster.Position;
+                pos -= plane.Origin;
                 if (pos.X >= -0.5f && pos.X <= 0.5f && pos.Y >= 0f && pos.Y <= 1f) // TODO: figure out how to use actual sprite size information
                 {
                     Type = TargetType.Monster;

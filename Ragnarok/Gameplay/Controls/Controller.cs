@@ -18,7 +18,11 @@ namespace Ragnarok.Gameplay
         public Controller(IControlState state) => default_state = state;
 
         public void Push(IControlState state) => stack.Push(state);
-        public void Pop() => stack.Pop();
+        public void Pop()
+        {
+            if (stack.Count > 0)
+                stack.Pop();
+        }
         public void Replace(IControlState state)
         {
             Pop();
