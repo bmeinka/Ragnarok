@@ -84,6 +84,19 @@ namespace Ragnarok.Gameplay
 
         public void Update(float delta)
         {
+            var target = new MouseTarget(camera, map);
+            switch (target.Type)
+            {
+                case MouseTarget.TargetType.Terrain:
+                    Game.Window.CursorVisible = true;
+                    break;
+                case MouseTarget.TargetType.Monster:
+                    Game.Window.CursorVisible = false;
+                    break;
+                case MouseTarget.TargetType.None:
+                    Game.Window.CursorVisible = true;
+                    break;
+            }
             if (Game.Mouse.IsButtonDown(MouseButton.Left) && timer.Elapsed.TotalSeconds >= move_delay)
                 Move();
             camera.Target = player.Position;

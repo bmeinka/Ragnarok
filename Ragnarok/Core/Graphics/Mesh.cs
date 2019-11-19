@@ -7,8 +7,6 @@ namespace Ragnarok.Core.Graphics
     {
         private readonly int tex;
 
-        public Plane Plane => new Plane { Normal = Vector3.UnitZ, Origin = Vector3.Zero };
-
         public Mesh(float w, float h)
         {
             GL.BindVertexArray(vao);

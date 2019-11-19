@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using System.Collections.Generic;
+using OpenTK;
 using Ragnarok.Core;
 using Ragnarok.Core.Graphics;
 using Ragnarok.Core.Physics;
@@ -15,8 +16,10 @@ namespace Ragnarok.World
         private readonly PhysicsWorld world;
         private readonly Monster[] monsters;
         private readonly Sprite monster_sprite = new Sprite(new Vector2(1f, 1f), new Vector3(1f, 0.5f, 0.4f));
+        private readonly Plane plane = new Plane { Normal = Vector3.UnitZ, Origin = Vector3.Zero };
 
         public Vector2 SpawnPoint => new Vector2(24f, 24f);
+        public IEnumerable<Monster> Monsters => monsters;
 
         public float Width => size.X;
         public float Height => size.Y;
@@ -61,7 +64,7 @@ namespace Ragnarok.World
         public bool MouseIntersection(Camera camera, out Vector2 position)
         {
             var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
-            var t = ray.Intersect(mesh.Plane);
+            var t = ray.Intersect(plane);
             if (t < 0)
             {
                 position = Vector2.Zero;
