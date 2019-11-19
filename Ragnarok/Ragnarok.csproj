@@ -68,6 +68,10 @@
     <Compile Include="Core\Plane.cs" />
     <Compile Include="Core\Random.cs" />
     <Compile Include="Core\Timer.cs" />
+    <Compile Include="Gameplay\CameraController.cs" />
+    <Compile Include="Gameplay\Controls\Controller.cs" />
+    <Compile Include="Gameplay\Controls\IControlState.cs" />
+    <Compile Include="Gameplay\Controls\IdleState.cs" />
     <Compile Include="Gameplay\MainScene.cs" />
     <Compile Include="Gameplay\MonsterController.cs" />
     <Compile Include="Gameplay\MouseTarget.cs" />

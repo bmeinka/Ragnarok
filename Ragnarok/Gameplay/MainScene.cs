@@ -11,6 +11,7 @@ namespace Ragnarok.Gameplay
         private Map map;
         private CoreShader shader; // TODO: create a renderer object to handle shaders
         private Camera camera;
+        private CameraController cc;
         private SpriteBatch sb;
         private Player player;
         private PlayerController pc;
@@ -18,6 +19,7 @@ namespace Ragnarok.Gameplay
         {
             shader = new CoreShader();
             camera = new Camera();
+            cc = new CameraController(camera);
             sb = new SpriteBatch(camera);
             map = new Map(48f, 48f);
             player = new Player();
