@@ -36,7 +36,7 @@ namespace Ragnarok.World
             {
                 var x = Game.Random.Float(0f, Width);
                 var y = Game.Random.Float(0f, Height);
-                monsters[i] = new Monster.Monster(monster_sprite);
+                monsters[i] = new Monster.Monster(monster_sprite, this);
                 monsters[i].Spawn(this, new Vector2(x, y));
             }
         }
@@ -54,7 +54,12 @@ namespace Ragnarok.World
             foreach (var monster in monsters)
                 monster.Draw(sb);
         }
-        public void Update(float delta) => world.Update(delta);
+        public void Update(float delta)
+        {
+            foreach (var monster in Monsters)
+                monster.Update();
+            world.Update(delta);
+        }
 
         /// <summary>
         /// determine if the mouse is interescting the map, and where

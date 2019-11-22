@@ -1,40 +1,17 @@
 ﻿using System;
 using Ragnarok.Core;
+using Ragnarok.Gameplay.Control;
 
 namespace Ragnarok.World.Monster
 {
-    class MonsterController
+    class MonsterController : Controller
     {
-        private readonly (float Min, float Max) pause_range;
-        private readonly (float Min, float Max) move_range;
-        private bool moving;
-        private readonly Monster monster;
-        private readonly Timer timer;
-        public MonsterController(Monster monster)
+        public Monster Monster { get; private set; }
+        public Map Map { get; private set; }
+        public MonsterController(Monster monster, Map map) : base(new IdleState())
         {
-            this.monster = monster;
-            moving = false;
-            pause_range = (0f, 3f);
-            move_range = (2f, 3f);
-            timer = new Timer();
-            timer.Event += Timeout;
+            Monster = monster;
+            Map = map;
         }
-
-        private void Timeout(object sender, EventArgs e)
-        {
-            if (moving)
-            {
-                monster.Stop();
-                moving = false;
-                timer.Start(Game.Random.Float(pause_range));
-            }
-            else
-            {
-                monster.Move(Game.Random.Vector2());
-                moving = true;
-                timer.Start(Game.Random.Float(move_range));
-            }
-        }
-        public void Start() => timer.Start(Game.Random.Float(pause_range));
     }
 }

@@ -71,6 +71,9 @@
     <Compile Include="Gameplay\TopDownCamera.cs" />
     <Compile Include="Gameplay\Control\Controller.cs" />
     <Compile Include="Gameplay\Control\IControlState.cs" />
+    <Compile Include="World\Character\Monster\IdleState.cs" />
+    <Compile Include="World\Character\Monster\MonsterState.cs" />
+    <Compile Include="World\Character\Monster\MoveState.cs" />
     <Compile Include="World\Character\Player\IdleState.cs" />
     <Compile Include="World\Character\Player\MoveState.cs" />
     <Compile Include="MainScene.cs" />
