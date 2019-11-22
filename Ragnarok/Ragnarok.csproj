@@ -68,7 +68,7 @@
     <Compile Include="Core\Plane.cs" />
     <Compile Include="Core\Random.cs" />
     <Compile Include="Core\Timer.cs" />
-    <Compile Include="Gameplay\CameraController.cs" />
+    <Compile Include="Gameplay\Camera.cs" />
     <Compile Include="Gameplay\Controls\Controller.cs" />
     <Compile Include="Gameplay\Controls\IControlState.cs" />
     <Compile Include="Gameplay\Controls\IdleState.cs" />
