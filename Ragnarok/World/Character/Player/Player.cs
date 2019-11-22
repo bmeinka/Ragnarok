@@ -1,7 +1,7 @@
 ﻿using OpenTK;
 using Ragnarok.Core.Graphics;
 
-namespace Ragnarok.World
+namespace Ragnarok.World.Player
 {
     class Player : Mob
     {

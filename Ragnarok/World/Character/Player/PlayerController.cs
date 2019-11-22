@@ -1,24 +1,24 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using OpenTK;
 using OpenTK.Input;
 using Ragnarok.Core;
-using Ragnarok.World;
+using Ragnarok.Gameplay;
+using Ragnarok.Gameplay.Control;
 
-namespace Ragnarok.Gameplay
+namespace Ragnarok.World.Player
 {
     class PlayerController : Controller
     {
         private const float click_delay = 0.5f;
 
         private readonly Player player;
-        private readonly Camera camera;
+        private readonly TopDownCamera camera;
         private readonly Map map;
         private readonly Stopwatch timer;
 
         private MouseTarget target;
 
-        public PlayerController(Camera camera, Map map, Player player) : base(new IdleState())
+        public PlayerController(TopDownCamera camera, Map map, Player player) : base(new IdleState())
         {
             this.player = player;
             this.camera = camera;
@@ -31,11 +31,11 @@ namespace Ragnarok.Gameplay
         {
             switch (target.Type)
             {
-                case MouseTarget.TargetType.Terrain:
+                case TargetType.Terrain:
                     if (map.MouseIntersection(camera, out Vector2 position))
                         Replace(new MoveState(player, position));
                     break;
-                case MouseTarget.TargetType.Monster:
+                case TargetType.Monster:
                     Replace(new MoveState(player, target.Monster.Position));
                     // TODO: attack the monster
                     break;

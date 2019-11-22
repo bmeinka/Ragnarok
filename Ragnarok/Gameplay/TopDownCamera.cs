@@ -4,7 +4,7 @@ using Ragnarok.Core;
 
 namespace Ragnarok.Gameplay
 {
-    class Camera : Core.Camera
+    class TopDownCamera : Camera
     {
         /// <summary>
         /// used to scale the angle adjustments to make sure they aren't too fast or slow
@@ -15,7 +15,7 @@ namespace Ragnarok.Gameplay
         /// </summary>
         private const float zoom_factor = 0.1f;
 
-        public Camera()
+        public TopDownCamera()
         {
             Game.Mouse.Move += Rotate;
             Game.Mouse.Scroll += ChangeZoom;

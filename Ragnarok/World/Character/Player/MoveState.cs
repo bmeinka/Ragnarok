@@ -1,7 +1,7 @@
 ﻿using OpenTK;
-using Ragnarok.World;
+using Ragnarok.Gameplay.Control;
 
-namespace Ragnarok.Gameplay
+namespace Ragnarok.World.Player
 {
     class MoveState : IControlState
     {

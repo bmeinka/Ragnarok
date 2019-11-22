@@ -2,22 +2,24 @@
 using Ragnarok.Core;
 using Ragnarok.Core.Graphics;
 using Ragnarok.Core.Graphics.Shaders;
+using Ragnarok.Gameplay;
 using Ragnarok.World;
+using Ragnarok.World.Player;
 
-namespace Ragnarok.Gameplay
+namespace Ragnarok
 {
     class MainScene : IScene
     {
         private Map map;
         private CoreShader shader; // TODO: create a renderer object to handle shaders
-        private Camera camera;
+        private TopDownCamera camera;
         private SpriteBatch sb;
         private Player player;
         private PlayerController pc;
         public void Load()
         {
             shader = new CoreShader();
-            camera = new Camera();
+            camera = new TopDownCamera();
             sb = new SpriteBatch(camera);
             map = new Map(48f, 48f);
             player = new Player();

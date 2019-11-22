@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ragnarok.Gameplay
+namespace Ragnarok.Gameplay.Control
 {
     abstract class Controller
     {

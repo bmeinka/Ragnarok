@@ -1,10 +1,6 @@
-﻿using OpenTK;
-using Ragnarok.Core;
-using Ragnarok.Core.Graphics;
-using Ragnarok.Core.Physics;
-using Ragnarok.Gameplay;
+﻿using Ragnarok.Core.Graphics;
 
-namespace Ragnarok.World
+namespace Ragnarok.World.Monster
 {
     class Monster : Mob
     {

@@ -1,19 +1,20 @@
 ﻿using OpenTK;
 using Ragnarok.Core;
 using Ragnarok.World;
+using Ragnarok.World.Monster;
 
 namespace Ragnarok.Gameplay
 {
+    enum TargetType { None, Terrain, Monster }
     /// <summary>
     /// a general idea about what the mouse is actually hovering over
     /// </summary>
     class MouseTarget
     {
-        public enum TargetType { None, Terrain, Monster }
         public TargetType Type { get; private set; }
         public Vector2 Position { get; private set; }
         public Monster Monster { get; private set; }
-        public MouseTarget(Camera camera, Map map)
+        public MouseTarget(TopDownCamera camera, Map map)
         {
             Type = TargetType.None;
             // use the default assumption that the thing is hitting the terrain.

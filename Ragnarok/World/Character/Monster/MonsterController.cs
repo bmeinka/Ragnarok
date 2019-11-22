@@ -1,8 +1,7 @@
 ﻿using System;
 using Ragnarok.Core;
-using Ragnarok.World;
 
-namespace Ragnarok.Gameplay
+namespace Ragnarok.World.Monster
 {
     class MonsterController
     {

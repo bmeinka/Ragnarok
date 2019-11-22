@@ -1,4 +1,6 @@
-﻿namespace Ragnarok.Gameplay
+﻿using Ragnarok.Gameplay.Control;
+
+namespace Ragnarok.World.Player
 {
     class IdleState : IControlState
     {
