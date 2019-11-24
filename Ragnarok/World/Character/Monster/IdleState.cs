@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Ragnarok.Core;
+using Ragnarok.Gameplay.Control;
 
 namespace Ragnarok.World.Monster
 {
@@ -9,15 +10,15 @@ namespace Ragnarok.World.Monster
         private readonly float duration;
         private readonly Stopwatch watch = new Stopwatch();
 
-        public IdleState()
+        public IdleState(Monster monster, Map map) : base(monster, map)
         {
             duration = Game.Random.Float(min, max);
             watch.Start();
         }
-        public override void Update(MonsterController parent)
+        public override void Update(Controller parent)
         {
             if (watch.Elapsed.TotalSeconds >= duration)
-                parent.Replace(new MoveState(parent));
+                parent.Replace(new MoveState(monster, map));
         }
     }
 }

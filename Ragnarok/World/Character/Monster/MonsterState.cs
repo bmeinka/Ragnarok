@@ -8,7 +8,13 @@ namespace Ragnarok.World.Monster
     /// </summary>
     abstract class MonsterState : IControlState
     {
-        public abstract void Update(MonsterController parent);
-        void IControlState.Update(Controller parent) => Update((MonsterController)parent);
+        protected readonly Monster monster;
+        protected readonly Map map;
+        public MonsterState(Monster monster, Map map)
+        {
+            this.monster = monster;
+            this.map = map;
+        }
+        public abstract void Update(Controller parent);
     }
 }

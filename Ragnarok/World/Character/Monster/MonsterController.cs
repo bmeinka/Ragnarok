@@ -4,13 +4,13 @@ namespace Ragnarok.World.Monster
 {
     class MonsterController : Controller
     {
-        public Monster Monster { get; private set; }
-        public Map Map { get; private set; }
+        private readonly Monster monster;
+        private readonly Map map;
         public MonsterController(Monster monster, Map map)
         {
-            Monster = monster;
-            Map = map;
+            this.monster = monster;
+            this.map = map;
         }
-        public override IControlState GetDefaultState() => new IdleState();
+        public override IControlState GetDefaultState() => new IdleState(monster, map);
     }
 }
