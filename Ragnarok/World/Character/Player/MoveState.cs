@@ -3,19 +3,17 @@ using Ragnarok.Gameplay.Control;
 
 namespace Ragnarok.World.Player
 {
-    class MoveState : IControlState
+    class MoveState : PlayerState
     {
-        private readonly Mob mob;
-        public Vector2 Position { get; set; }
-        public MoveState(Mob mob, Vector2 position)
+        private readonly Vector2 position;
+        public MoveState(Player player, Vector2 position) : base(player)
         {
-            this.mob = mob;
-            Position = position;
-            mob.MoveTo(position);
+            this.position = position;
+            player.MoveTo(position);
         }
-        public void Update(Controller parent)
+        public override void Update(Controller parent)
         {
-            if (mob.Position == Position)
+            if (player.Position == position)
                 parent.Pop();
         }
     }

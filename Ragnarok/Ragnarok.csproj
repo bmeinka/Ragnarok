@@ -74,6 +74,7 @@
     <Compile Include="World\Character\Monster\IdleState.cs" />
     <Compile Include="World\Character\Monster\MonsterState.cs" />
     <Compile Include="World\Character\Monster\MoveState.cs" />
+    <Compile Include="World\Character\Player\AttackState.cs" />
     <Compile Include="World\Character\Player\IdleState.cs" />
     <Compile Include="World\Character\Player\MoveState.cs" />
     <Compile Include="MainScene.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="World\Character\Player\Player.cs" />
     <Compile Include="World\Character\Player\PlayerController.cs" />
     <Compile Include="Core\Input\Mouse.cs" />
+    <Compile Include="World\Character\Player\PlayerState.cs" />
     <Compile Include="World\Map.cs" />
     <Compile Include="Ragnarok.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

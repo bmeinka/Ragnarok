@@ -11,12 +11,18 @@ namespace Ragnarok.World
     {
         protected DynamicBody body;
         protected readonly Sprite sprite;
+        public bool Alive => body.Enabled;
         public Vector2 Position => body.Position;
         public Mob(Sprite sprite) => this.sprite = sprite;
         public void Spawn(Map map, Vector2 position) => body = map.SpawnMob(position);
-        public void Draw(SpriteBatch sb) => sb.Add(sprite, new Vector3(body.Position.X, body.Position.Y, 0f));
+        public void Draw(SpriteBatch sb)
+        {
+            if (Alive)
+                sb.Add(sprite, new Vector3(Position.X, Position.Y, 0f));
+        }
         public void Move(Vector2 direction) => body.Move(direction);
         public void MoveTo(Vector2 position) => body.MoveTo(position);
         public void Stop() => body.MoveTo(body.Position);
+        public void TakeHit() => body.Disable();
     }
 }

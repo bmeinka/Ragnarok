@@ -4,18 +4,17 @@ namespace Ragnarok.Gameplay.Control
 {
     abstract class Controller
     {
-        protected readonly IControlState default_state;
         protected readonly Stack<IControlState> stack = new Stack<IControlState>();
         public IControlState State
         {
             get
             {
-                if (stack.Count > 0)
-                    return stack.Peek();
-                return default_state;
+                // push a new state if there isn't one
+                if (stack.Count <= 0)
+                    stack.Push(GetDefaultState());
+                return stack.Peek();
             }
         }
-        public Controller(IControlState state) => default_state = state;
 
         public void Push(IControlState state) => stack.Push(state);
         public void Pop()
@@ -28,6 +27,7 @@ namespace Ragnarok.Gameplay.Control
             Pop();
             Push(state);
         }
-        public void Update() => State.Update(this);
+        public virtual void Update() => State.Update(this);
+        public abstract IControlState GetDefaultState();
     }
 }

@@ -32,7 +32,7 @@ namespace Ragnarok
         public void Update(float delta)
         {
             camera.Update(delta);
-            pc.Update(delta);
+            pc.Update();
             map.Update(delta);
         }
 

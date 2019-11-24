@@ -30,10 +30,16 @@ namespace Ragnarok.Core.Physics
             return body;
         }
 
+        private IEnumerable<PhysicsBody> ActiveBodies()
+        {
+            foreach (var body in from body in bodies where body.Enabled select body)
+                yield return body;
+        }
+
         private void UpdateMovement(float delta)
         {
             // query for bodies that both want to move and are actually able to move
-            foreach (var body in from body in bodies where body.Destination != body.Position && body.MovementSpeed > 0 select body)
+            foreach (var body in from body in ActiveBodies() where body.Destination != body.Position && body.MovementSpeed > 0 select body)
             {
                 var distance = delta * body.MovementSpeed;
                 var goal = body.Destination - body.Position;
@@ -73,7 +79,7 @@ namespace Ragnarok.Core.Physics
                 foreach (var a in dirty)
                 {
                     // every other body
-                    foreach (var b in from body in bodies where body != a select body)
+                    foreach (var b in from body in ActiveBodies() where body != a select body)
                     {
                         var collision = new Collision(a, b);
                         if (collision.Collides)

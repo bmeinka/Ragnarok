@@ -1,6 +1,4 @@
-﻿using System;
-using Ragnarok.Core;
-using Ragnarok.Gameplay.Control;
+﻿using Ragnarok.Gameplay.Control;
 
 namespace Ragnarok.World.Monster
 {
@@ -8,10 +6,11 @@ namespace Ragnarok.World.Monster
     {
         public Monster Monster { get; private set; }
         public Map Map { get; private set; }
-        public MonsterController(Monster monster, Map map) : base(new IdleState())
+        public MonsterController(Monster monster, Map map)
         {
             Monster = monster;
             Map = map;
         }
+        public override IControlState GetDefaultState() => new IdleState();
     }
 }

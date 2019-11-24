@@ -18,7 +18,7 @@ namespace Ragnarok.World.Player
 
         private MouseTarget target;
 
-        public PlayerController(TopDownCamera camera, Map map, Player player) : base(new IdleState())
+        public PlayerController(TopDownCamera camera, Map map, Player player)
         {
             this.player = player;
             this.camera = camera;
@@ -36,8 +36,7 @@ namespace Ragnarok.World.Player
                         Replace(new MoveState(player, position));
                     break;
                 case TargetType.Monster:
-                    Replace(new MoveState(player, target.Monster.Position));
-                    // TODO: attack the monster
+                    Replace(new AttackState(player, target.Monster));
                     break;
             }
         }
@@ -50,10 +49,12 @@ namespace Ragnarok.World.Player
                 HandleTarget();
             }
         }
-        public void Update(float delta)
+        public override IControlState GetDefaultState() => new IdleState(player);
+        public override void Update()
         {
             if (Game.Mouse.IsButtonDown(MouseButton.Left) && timer.Elapsed.TotalSeconds >= click_delay)
                 HandleTarget();
+            base.Update();
             camera.Target = new Vector3(player.Position.X, player.Position.Y, 0f);
         }
     }

@@ -4,6 +4,8 @@ namespace Ragnarok.Core.Physics
 {
     abstract class PhysicsBody
     {
+        public bool Enabled { get; set; } = true;
+        public bool Disabled { get { return !Enabled; } set { Enabled = !value; } }
         /// <summary>
         /// every object has mass. this is the inverse of that mass (more useful for calculations)
         /// </summary>
@@ -31,5 +33,7 @@ namespace Ragnarok.Core.Physics
             Position = position;
             Shape = shape;
         }
+        public void Enable() => Enabled = true;
+        public void Disable() => Disabled = true;
     }
 }
