@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using System.Linq;
+using OpenTK;
 using Ragnarok.Core;
 using Ragnarok.World;
 using Ragnarok.World.Monster;
@@ -26,7 +27,7 @@ namespace Ragnarok.Gameplay
 
             var ray = camera.GetRay(Game.Mouse.X, Game.Mouse.Y);
             var plane = new Plane();
-            foreach (var monster in map.Monsters)
+            foreach (var monster in from m in map.Monsters where m.IsAlive() select m)
             {
                 plane.Normal = -(camera.Target - camera.Position).Normalized();
                 plane.Origin = new Vector3(monster.Position.X, monster.Position.Y, 0f);

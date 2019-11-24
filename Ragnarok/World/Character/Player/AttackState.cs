@@ -12,12 +12,11 @@ namespace Ragnarok.World.Player
         }
         public override void Update(Controller parent)
         {
-            if (!target.Alive)
+            if (!target.IsAlive())
                 parent.Pop();
             var distance = (target.Position - player.Position).Length;
-            //System.Console.WriteLine(distance);
             if (distance <= 1.1f)
-                target.TakeHit();
+                target.TakeHit(player.ATK);
             else
                 player.MoveTo(target.Position);
         }

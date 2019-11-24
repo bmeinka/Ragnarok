@@ -2,10 +2,18 @@
 
 namespace Ragnarok.Core.Physics
 {
+    public delegate bool EnabledCallback();
     abstract class PhysicsBody
     {
-        public bool Enabled { get; set; } = true;
-        public bool Disabled { get { return !Enabled; } set { Enabled = !value; } }
+        private bool enabled = true;
+
+        /// <summary>
+        /// a callback to determine if the body shouldbe enabled or disabled
+        /// </summary>
+        /// <remarks>overrides Enable() and Disable(). set to null to disable again and return to normal</remarks>
+        public EnabledCallback EnabledCallback { get; set; }
+        public bool Enabled { get { if (EnabledCallback != null) return EnabledCallback(); else return enabled; } }
+        public bool Disabled => !Enabled;
         /// <summary>
         /// every object has mass. this is the inverse of that mass (more useful for calculations)
         /// </summary>
@@ -33,7 +41,7 @@ namespace Ragnarok.Core.Physics
             Position = position;
             Shape = shape;
         }
-        public void Enable() => Enabled = true;
-        public void Disable() => Disabled = true;
+        public void Enable() => enabled = true;
+        public void Disable() => enabled = false;
     }
 }

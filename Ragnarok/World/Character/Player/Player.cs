@@ -5,6 +5,10 @@ namespace Ragnarok.World.Player
 {
     class Player : Mob
     {
-        public Player() : base(new Sprite(new Vector2(1f, 2f), new Vector3(0f, 0.5f, 0.8f))) { }
+        public Player() : base(new Sprite(new Vector2(1f, 2f), new Vector3(0f, 0.5f, 0.8f)))
+        {
+            HP = 100;
+            ATK = 10;
+        }
     }
 }
