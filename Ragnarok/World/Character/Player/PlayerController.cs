@@ -4,6 +4,7 @@ using OpenTK.Input;
 using Ragnarok.Core;
 using Ragnarok.Gameplay;
 using Ragnarok.Gameplay.Control;
+using Ragnarok.Gameplay.Control.State;
 
 namespace Ragnarok.World.Player
 {
@@ -33,13 +34,14 @@ namespace Ragnarok.World.Player
             {
                 case TargetType.Terrain:
                     if (map.MouseIntersection(camera, out Vector2 position))
-                        Replace(new MoveState(player, position));
+                        Collapse(new Move(player, position));
                     break;
                 case TargetType.Monster:
-                    Replace(new AttackState(player, target.Monster));
+                    Collapse(new Attack(player, target.Monster));
                     break;
             }
         }
+        
         private void Click(object sender, MouseButtonEventArgs e)
         {
             if (e.Button == MouseButton.Left)
@@ -49,7 +51,7 @@ namespace Ragnarok.World.Player
                 HandleTarget();
             }
         }
-        public override IControlState GetDefaultState() => new IdleState(player);
+        public override IControlState GetDefaultState() => new Idle(player);
         public override void Update()
         {
             if (Game.Mouse.IsButtonDown(MouseButton.Left) && timer.Elapsed.TotalSeconds >= click_delay)

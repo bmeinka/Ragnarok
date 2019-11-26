@@ -11,6 +11,8 @@ namespace Ragnarok.World
     {
         public int HP { get; protected set; }
         public int ATK { get; protected set; }
+        public float Sight => 10f;
+        public Skill BasicAttack => new Skill(ATK, 1.1f, 0.7f);
 
         protected DynamicBody body;
         protected readonly Sprite sprite;
@@ -30,6 +32,10 @@ namespace Ragnarok.World
         public void MoveTo(Vector2 position) => body.MoveTo(position);
         public void Stop() => body.MoveTo(body.Position);
         public bool IsAlive() => HP > 0;
-        public void TakeHit(int damage) => HP -= damage;
+        public void TakeHit(Skill skill)
+        {
+            HP -= skill.Damage;
+            System.Console.WriteLine($"-{skill.Damage} : {HP}");
+        }
     }
 }
