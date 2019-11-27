@@ -5,6 +5,7 @@ namespace Ragnarok.Gameplay.Control
     abstract class Controller
     {
         private readonly bool debug;
+        private bool dirty = false;
         protected readonly Stack<IControlState> stack = new Stack<IControlState>();
         public IControlState CurrentState
         {
@@ -33,18 +34,19 @@ namespace Ragnarok.Gameplay.Control
         public void Push(IControlState state)
         {
             stack.Push(state);
-            ShowStack();
+            dirty = true;
         }
         public void Pop()
         {
             if (stack.Count > 0)
                 stack.Pop();
-            ShowStack();
+            dirty = true;
         }
         public void Replace(IControlState state)
         {
             Pop();
             Push(state);
+            dirty = true;
         }
 
         /// <summary>
@@ -55,9 +57,19 @@ namespace Ragnarok.Gameplay.Control
         {
             stack.Clear();
             stack.Push(state);
+            dirty = true;
         }
 
-        public virtual void Update() => CurrentState.Update(this);
+        //public virtual void Update() => CurrentState.Update(this);
+        public virtual void Update()
+        {
+            if (debug && dirty)
+            {
+                ShowStack();
+                dirty = false;
+            }
+            CurrentState.Update(this);
+        }
         public abstract IControlState GetDefaultState();
     }
 }

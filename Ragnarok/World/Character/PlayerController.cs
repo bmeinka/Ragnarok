@@ -19,7 +19,7 @@ namespace Ragnarok.World
 
         private MouseTarget target;
 
-        public PlayerController(TopDownCamera camera, Map map, Player player)
+        public PlayerController(TopDownCamera camera, Map map, Player player) : base(true)
         {
             this.player = player;
             this.camera = camera;
@@ -28,20 +28,26 @@ namespace Ragnarok.World
 
             Game.Mouse.Down += Click;
         }
+
+        /// <summary>
+        /// used to determine if a repeating command should continue to repeat
+        /// </summary>
+        /// <returns>true if the mouse button is held, false if it is released</returns>
+        private bool Continue() => Game.Mouse.IsButtonDown(MouseButton.Left);
+
         private void HandleTarget()
         {
             switch (target.Type)
             {
                 case TargetType.Terrain:
-                    if (map.MouseIntersection(camera, out Vector2 position))
-                        Collapse(new Move(player, position));
+                    Collapse(new Move(player, target.GetPosition));
                     break;
                 case TargetType.Monster:
-                    Collapse(new Attack(player, target.Monster));
+                    Collapse(new Attack(player, target.Monster, Continue));
                     break;
             }
         }
-        
+
         private void Click(object sender, MouseButtonEventArgs e)
         {
             if (e.Button == MouseButton.Left)
@@ -51,13 +57,14 @@ namespace Ragnarok.World
                 HandleTarget();
             }
         }
-        public override IControlState GetDefaultState() => new Idle(player);
+
         public override void Update()
         {
-            if (Game.Mouse.IsButtonDown(MouseButton.Left) && timer.Elapsed.TotalSeconds >= click_delay)
-                HandleTarget();
+            if (Continue() && timer.Elapsed.TotalSeconds >= click_delay)
+                target.UpdatePosition();
             base.Update();
             camera.Target = new Vector3(player.Position.X, player.Position.Y, 0f);
         }
+        public override IControlState GetDefaultState() => new Idle(player);
     }
 }

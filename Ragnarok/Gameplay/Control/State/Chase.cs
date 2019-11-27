@@ -15,13 +15,9 @@ namespace Ragnarok.Gameplay.Control.State
         /// <param name="chased">the mob being chased</param>
         /// <param name="range">the minimum distance to consider the chased mob caught</param>
         /// <param name="sight">the maximum distance before considering the chased mob as gotten away</param>
-        public Chase(Mob chaser, Mob chased, float range)
-        {
-            this.chaser = chaser;
-            this.chased = chased;
-            this.range = range;
-            chaser.MoveTo(chased.Position);
-        }
+        public Chase(Mob chaser, Mob chased, float range) =>
+            (this.chaser, this.chased, this.range) = (chaser, chased, range);
+
         public void Update(Controller parent)
         {
             chaser.MoveTo(chased.Position);

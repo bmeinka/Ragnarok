@@ -14,8 +14,14 @@ namespace Ragnarok.Gameplay
         public TargetType Type { get; private set; }
         public Vector2 Position { get; private set; }
         public Monster Monster { get; private set; }
+
+        private readonly TopDownCamera camera;
+        private readonly Map map;
+
         public MouseTarget(TopDownCamera camera, Map map)
         {
+            (this.camera, this.map) = (camera, map);
+
             Type = TargetType.None;
             // use the default assumption that the thing is hitting the terrain.
             if (map.MouseIntersection(camera, out Vector2 position))
@@ -39,5 +45,13 @@ namespace Ragnarok.Gameplay
                 }
             }
         }
+
+        public void UpdatePosition()
+        {
+            if (map.MouseIntersection(camera, out Vector2 position))
+                Position = position;
+        }
+
+        public Vector2 GetPosition() => Position; // just so it can be used as a delegate
     }
 }

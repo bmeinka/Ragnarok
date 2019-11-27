@@ -4,9 +4,10 @@ using Ragnarok.World;
 
 namespace Ragnarok.Gameplay.Control.State
 {
-    delegate float RangeCallback();
     class Wander : IControlState
     {
+        public delegate float RangeCallback();
+
         private readonly Mob mob;
         private readonly Map map;
         private readonly RangeCallback wait_time, move_range;
