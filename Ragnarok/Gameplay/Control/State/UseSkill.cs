@@ -15,7 +15,7 @@ namespace Ragnarok.Gameplay.Control.State
             if (distance > skill.Range)
                 parent.Push(new Chase(user, target, skill.Range));
             else
-                parent.Replace(new ApplySkill(target, skill));
+                parent.Replace(new ApplySkill(user, target, skill));
         }
 
         public override string ToString() => "UseSkill";

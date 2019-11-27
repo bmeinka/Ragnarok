@@ -19,7 +19,7 @@ namespace Ragnarok.World
 
         private MouseTarget target;
 
-        public PlayerController(TopDownCamera camera, Map map, Player player) : base(true)
+        public PlayerController(TopDownCamera camera, Map map, Player player)
         {
             this.player = player;
             this.camera = camera;

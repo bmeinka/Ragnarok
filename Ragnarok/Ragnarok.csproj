@@ -76,6 +76,7 @@
     <Compile Include="Gameplay\Control\State\TimeoutState.cs" />
     <Compile Include="Gameplay\Control\State\UseSkill.cs" />
     <Compile Include="Gameplay\Control\State\Wander.cs" />
+    <Compile Include="World\Character\HitEvent.cs" />
     <Compile Include="World\Skill.cs" />
     <Compile Include="Gameplay\TopDownCamera.cs" />
     <Compile Include="Gameplay\Control\Controller.cs" />

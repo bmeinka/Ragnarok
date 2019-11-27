@@ -4,9 +4,14 @@ namespace Ragnarok.Gameplay.Control
 {
     abstract class Controller
     {
+
         private readonly bool debug;
-        private bool dirty = false;
         protected readonly Stack<IControlState> stack = new Stack<IControlState>();
+
+        private bool dirty = false;
+
+        public bool Enabled { get; set; } = true;
+
         public IControlState CurrentState
         {
             get
@@ -68,7 +73,8 @@ namespace Ragnarok.Gameplay.Control
                 ShowStack();
                 dirty = false;
             }
-            CurrentState.Update(this);
+            if (Enabled)
+                CurrentState.Update(this);
         }
         public abstract IControlState GetDefaultState();
     }
