@@ -14,11 +14,11 @@ namespace Ragnarok.Gameplay.Control.State
         {
             this.mob = mob;
             this.position = position;
-            mob.MoveTo(position);
         }
 
         public override void Update(Controller parent)
         {
+            mob.MoveTo(position);
             if (mob.Position == position)
                 parent.Pop();
             base.Update(parent);

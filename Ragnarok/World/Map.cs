@@ -3,7 +3,7 @@ using OpenTK;
 using Ragnarok.Core;
 using Ragnarok.Core.Graphics;
 using Ragnarok.Core.Physics;
-using Ragnarok.World.Monster;
+using Ragnarok.World;
 
 namespace Ragnarok.World
 {
@@ -15,12 +15,12 @@ namespace Ragnarok.World
         private readonly Mesh mesh;
         private readonly Vector2 size;
         private readonly PhysicsWorld world;
-        private readonly Monster.Monster[] monsters;
+        private readonly Monster[] monsters;
         private readonly Sprite monster_sprite = new Sprite(new Vector2(1f, 1f), new Vector3(1f, 0.5f, 0.4f));
         private readonly Plane plane = new Plane { Normal = Vector3.UnitZ, Origin = Vector3.Zero };
 
         public Vector2 SpawnPoint => new Vector2(24f, 24f);
-        public IEnumerable<Monster.Monster> Monsters => monsters;
+        public IEnumerable<Monster> Monsters => monsters;
 
         public float Width => size.X;
         public float Height => size.Y;
@@ -31,12 +31,12 @@ namespace Ragnarok.World
             world = new PhysicsWorld(width, height);
             mesh = new Mesh(width, height);
 
-            monsters = new Monster.Monster[5];
+            monsters = new Monster[5];
             for (var i = 0; i < monsters.Length; i++)
             {
                 var x = Game.Random.Float(0f, Width);
                 var y = Game.Random.Float(0f, Height);
-                monsters[i] = new Monster.Monster(monster_sprite, this);
+                monsters[i] = new Monster(monster_sprite, this);
                 monsters[i].Spawn(this, new Vector2(x, y));
             }
         }
@@ -60,6 +60,9 @@ namespace Ragnarok.World
                 monster.Update();
             world.Update(delta);
         }
+
+        public bool ValidPosition(Vector2 position, float radius = 0.5f) =>
+            position.X >= radius && position.X <= Width - radius && position.Y >= radius && position.Y <= Height - radius;
 
         /// <summary>
         /// determine if the mouse is interescting the map, and where

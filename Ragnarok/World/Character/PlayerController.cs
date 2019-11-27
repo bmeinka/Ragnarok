@@ -6,7 +6,7 @@ using Ragnarok.Gameplay;
 using Ragnarok.Gameplay.Control;
 using Ragnarok.Gameplay.Control.State;
 
-namespace Ragnarok.World.Player
+namespace Ragnarok.World
 {
     class PlayerController : Controller
     {

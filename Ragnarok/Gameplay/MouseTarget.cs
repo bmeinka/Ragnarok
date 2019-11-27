@@ -2,7 +2,6 @@
 using OpenTK;
 using Ragnarok.Core;
 using Ragnarok.World;
-using Ragnarok.World.Monster;
 
 namespace Ragnarok.Gameplay
 {

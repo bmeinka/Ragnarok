@@ -4,7 +4,6 @@ using Ragnarok.Core.Graphics;
 using Ragnarok.Core.Graphics.Shaders;
 using Ragnarok.Gameplay;
 using Ragnarok.World;
-using Ragnarok.World.Player;
 
 namespace Ragnarok
 {

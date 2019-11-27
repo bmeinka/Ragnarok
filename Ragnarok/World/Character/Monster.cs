@@ -1,6 +1,6 @@
 ﻿using Ragnarok.Core.Graphics;
 
-namespace Ragnarok.World.Monster
+namespace Ragnarok.World
 {
     class Monster : Mob
     {
