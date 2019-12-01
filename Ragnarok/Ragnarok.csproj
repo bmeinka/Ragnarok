@@ -124,6 +124,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GFT\GFT.csproj">
+      <Project>{946ff9a7-e2c9-427e-a13e-71bc483b50a4}</Project>
+      <Name>GFT</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

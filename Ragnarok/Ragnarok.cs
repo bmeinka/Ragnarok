@@ -1,10 +1,16 @@
 ﻿using Ragnarok.Core;
-using Ragnarok.Gameplay;
+using GFT;
 
 namespace Ragnarok
 {
     static class Ragnarok
     {
-        static void Main(string[] args) => Game.Begin(new MainScene());
+        const string GRF_PATH = @"D:\programs\ragnarok\data.grf";
+        static void Main(string[] args)
+        {
+            var grf = new GRF(GRF_PATH);
+            System.Console.WriteLine(grf.FileCount);
+            Game.Begin(new MainScene());
+        }
     }
 }
